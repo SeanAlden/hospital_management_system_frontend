@@ -1272,7 +1272,7 @@ function Layout({ children }) {
         <div className="px-3 py-3 border-b border-blue-700 flex items-start gap-2">
           {isOpen && (
             <div className="w-full flex items-center gap-2">
-              <img src="/icons/hospital.png" className="w-10 h-10" />
+              <img src="/icons/hospital.png" alt="hospital" className="w-10 h-10" />
               <h1 className="font-bold text-3xl">Hospital</h1>
             </div>
           )}
@@ -1292,7 +1292,7 @@ function Layout({ children }) {
             to="/"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/dashboard.png" className="w-7 h-7" />
+            <img src="/icons/dashboard.png" alt="dashboard" className="w-7 h-7" />
             {isOpen && <span>Dashboard</span>}
           </Link>
 
@@ -1300,7 +1300,7 @@ function Layout({ children }) {
             to="/doctors"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/doctor.png" className="w-7 h-7" />
+            <img src="/icons/doctor.png" alt="doctor" className="w-7 h-7" />
             {isOpen && <span>Doctors</span>}
           </Link>
 
@@ -1308,7 +1308,7 @@ function Layout({ children }) {
             to="/patients"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/patient.png" className="w-7 h-7" />
+            <img src="/icons/patient.png" alt="patient" className="w-7 h-7" />
             {isOpen && <span>Patients</span>}
           </Link>
 
@@ -1316,7 +1316,7 @@ function Layout({ children }) {
             to="/departments"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/department.png" className="w-7 h-7" />
+            <img src="/icons/department.png" alt="department" className="w-7 h-7" />
             {isOpen && <span>Department</span>}
           </Link>
 
@@ -1324,7 +1324,7 @@ function Layout({ children }) {
             to="/appointments"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/appointment.png" className="w-7 h-7" />
+            <img src="/icons/appointment.png" alt="appointment" className="w-7 h-7" />
             {isOpen && <span>Appointment</span>}
           </Link>
 
@@ -1332,7 +1332,7 @@ function Layout({ children }) {
             to="/medical_records"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/medical-record.png" className="w-7 h-7" />
+            <img src="/icons/medical-record.png" alt="medical-record" className="w-7 h-7" />
             {isOpen && <span>Medical Records</span>}
           </Link>
 
@@ -1340,7 +1340,7 @@ function Layout({ children }) {
             to="/rooms"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/room.png" className="w-7 h-7" />
+            <img src="/icons/room.png" alt="medical-record" className="w-7 h-7" />
             {isOpen && <span>Rooms</span>}
           </Link>
 
@@ -1348,7 +1348,7 @@ function Layout({ children }) {
             to="/admissions"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/admission.png" className="w-7 h-7" />
+            <img src="/icons/admission.png" alt="admission" className="w-7 h-7" />
             {isOpen && <span>Admissions</span>}
           </Link>
 
@@ -1356,7 +1356,7 @@ function Layout({ children }) {
             to="/bills"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/bill.png" className="w-7 h-7" />
+            <img src="/icons/bill.png" alt="bill" className="w-7 h-7" />
             {isOpen && <span>Billings</span>}
           </Link>
 
@@ -1367,7 +1367,7 @@ function Layout({ children }) {
               className="flex items-center justify-between w-full px-3 py-2 hover:bg-blue-700"
             >
               <div className="flex items-center gap-3">
-                <img src="/icons/drug.png" className="w-7 h-7" />
+                <img src="/icons/drug.png" alt="drug" className="w-7 h-7" />
                 {isOpen && <span>Medicines</span>}
               </div>
               {isOpen && (
@@ -1411,7 +1411,7 @@ function Layout({ children }) {
             to="/staff"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/staff.png" className="w-7 h-7" />
+            <img src="/icons/staff.png" alt="staff" className="w-7 h-7" />
             {isOpen && <span>Staff</span>}
           </Link>
 
@@ -1419,7 +1419,7 @@ function Layout({ children }) {
             to="/labtests"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/labtest.png" className="w-7 h-7" />
+            <img src="/icons/labtest.png" alt="labtest" className="w-7 h-7" />
             {isOpen && <span>Lab Tests</span>}
           </Link>
 
@@ -1427,7 +1427,7 @@ function Layout({ children }) {
             to="/suppliers"
             className="flex items-center gap-3 px-3 py-2 text-gray-200 hover:bg-blue-700 transition no-underline"
           >
-            <img src="/icons/supplier.png" className="w-7 h-7" />
+            <img src="/icons/supplier.png" alt="supplier" className="w-7 h-7" />
             {isOpen && <span>Suppliers</span>}
           </Link>
         </nav>
@@ -1467,13 +1467,13 @@ function Layout({ children }) {
               className="profile-btn cursor-pointer"
               onClick={() => setIsProfileOpen((v) => !v)}
             >
-              <img src="/profile.png" className="w-8 h-8 rounded-full" />
+              <img src="/profile.png" alt="profile" className="w-8 h-8 rounded-full" />
             </div>
 
             {isProfileOpen && (
               <div className="profile-dropdown absolute top-12 right-0 w-56 bg-white shadow-lg rounded-md py-3 z-50">
                 <div className="flex flex-col items-center border-b pb-3 px-3">
-                  <img src="/profile.png" className="w-12 h-12 rounded-full" />
+                  <img src="/profile.png" alt="profile" className="w-12 h-12 rounded-full" />
                   <p className="text-sm mt-2 font-medium text-gray-700 break-all">
                     {/* show email when available, otherwise username or 'User' */}
                     {loadingUser
