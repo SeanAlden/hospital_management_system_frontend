@@ -155,7 +155,7 @@ export default function LoginPage() {
     e.preventDefault();
     setErr(null);
     try {
-      const res = await axios.post("/api/auth/login", form);
+      const res = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/login", form);
       const { token, user } = res.data;
       localStorage.setItem("auth_token", token);
       localStorage.setItem("auth_user", JSON.stringify(user));
