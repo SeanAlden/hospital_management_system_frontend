@@ -30,8 +30,8 @@ export default function Pagination({
 
   const pages = makePages();
 
-  const startIndex = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
-  const endIndex = Math.min(totalItems, currentPage * itemsPerPage);
+  // const startIndex = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+  // const endIndex = Math.min(totalItems, currentPage * itemsPerPage);
 
   const gotoPage = (p) => {
     if (p === '...') return;
