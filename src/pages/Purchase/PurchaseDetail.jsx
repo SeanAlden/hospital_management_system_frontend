@@ -12,7 +12,7 @@ export default function PurchaseDetail() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await axios.get(`/api/purchases/${id}`);
+        const res = await axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${id}`);
         setPurchase(res.data);
       } catch (err) {
         console.error("Failed to load purchase", err);

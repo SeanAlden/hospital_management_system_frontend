@@ -14,7 +14,7 @@ function PatientCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/add_user", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_user", form);
       setAlert({ type: "success", message: "✅ Data pasien berhasil disimpan!" });
       setTimeout(() => navigate("/patients"), 3000);
     } catch (error) {

@@ -16,9 +16,9 @@ function BillEdit() {
     const fetch = async () => {
       try {
         const [billRes, admissionsRes, patientsRes] = await Promise.all([
-          axios.get(`/api/bills/${id}`),
-          axios.get("/api/admissions"),
-          axios.get("/api/patients"),
+          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/admissions"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
         ]);
         const data = billRes.data;
         setBill(data);
@@ -60,7 +60,7 @@ function BillEdit() {
         status: form.status,
         items: form.items.map(i => ({ description: i.description, amount: parseFloat(i.amount || 0).toFixed(2) }))
       };
-      await axios.put(`/api/bills/${id}`, payload);
+      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`, payload);
       setAlert({ type: "success", message: "✅ Bill updated" });
       setTimeout(() => navigate("/bills"), 1000);
     } catch (err) {

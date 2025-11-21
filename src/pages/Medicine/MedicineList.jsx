@@ -232,8 +232,8 @@ export default function MedicineList() {
     const load = async () => {
       try {
         const [medRes, stockRes] = await Promise.all([
-          axios.get("/api/medicines"),
-          axios.get("/api/medicine_stocks"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
         ]);
         setMedicines(medRes.data || []);
         setStocks(stockRes.data || []);
@@ -246,7 +246,7 @@ export default function MedicineList() {
 
   const deleteMedicine = async (id) => {
     if (!window.confirm("Delete this medicine?")) return;
-    await axios.delete(`/api/medicines/${id}`);
+    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`);
     setMedicines(medicines.filter((m) => m.id !== id));
   };
 

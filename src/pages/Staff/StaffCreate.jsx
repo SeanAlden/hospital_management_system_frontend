@@ -10,7 +10,7 @@ function StaffCreate() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get("/api/departments").then((res) => setDepartments(res.data)).catch(() => setDepartments([]));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data)).catch(() => setDepartments([]));
   }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +18,7 @@ function StaffCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/staff", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/staff", form);
       setAlert({ type: "success", message: "Staff created!" });
       setTimeout(() => navigate("/staff"), 900);
     } catch (err) {

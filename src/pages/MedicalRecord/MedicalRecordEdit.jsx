@@ -23,9 +23,9 @@ function MedicalRecordEdit() {
     const fetchData = async () => {
       try {
         const [recordRes, patientsRes, doctorsRes] = await Promise.all([
-          axios.get(`/api/get_medical_record/${id}`),
-          axios.get("/api/patients"),
-          axios.get("/api/doctors"),
+          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_medical_record/${id}`),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
         ]);
         const data = recordRes.data[0];
         setForm({
@@ -49,7 +49,7 @@ function MedicalRecordEdit() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post(`/api/edit_medical_record/${id}`, form);
+      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_medical_record/${id}`, form);
       setAlert({ type: "success", message: "Medical record updated!" });
       setTimeout(() => navigate("/medical_records"), 1500);
     } catch(err) {

@@ -43,7 +43,7 @@ export default function EntryList() {
   const fetchEntries = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/api/entries");
+      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/entries");
       setEntries(res.data || []);
     } catch (err) {
       console.error(err);
@@ -57,7 +57,7 @@ export default function EntryList() {
   const cancelDelete = () => setDeleteId(null);
   const doDelete = async () => {
     try {
-      await axios.delete(`/api/entries/${deleteId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${deleteId}`);
       setEntries((prev) => prev.filter((e) => e.id !== deleteId));
       setDeleteId(null);
     } catch (err) {

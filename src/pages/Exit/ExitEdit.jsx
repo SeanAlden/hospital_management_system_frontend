@@ -11,8 +11,8 @@ export default function ExitEdit() {
   useEffect(() => {
     const load = async () => {
       const [stockRes, exitRes] = await Promise.all([
-        axios.get("/api/medicine_stocks"),
-        axios.get(`/api/exits/${id}`)
+        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
+        axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`)
       ]);
       setStocks(stockRes.data || []);
       setForm({
@@ -31,7 +31,7 @@ export default function ExitEdit() {
     if (!form.medicine_stock_id) return alert("Select batch");
     if (!form.quantity || Number(form.quantity) <= 0) return alert("Quantity > 0");
     // Note: server will validate availability
-    await axios.put(`/api/exits/${id}`, { ...form, quantity: Number(form.quantity) });
+    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`, { ...form, quantity: Number(form.quantity) });
     navigate("/exit-stocks");
   };
 

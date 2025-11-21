@@ -7,7 +7,7 @@ function BillDetail() {
   const [bill, setBill] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/bills/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`).then((res) => {
       setBill(res.data);
     }).catch(err => console.error(err));
   }, [id]);

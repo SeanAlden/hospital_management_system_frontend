@@ -17,7 +17,7 @@ function DoctorCreate() {
 
   useEffect(() => {
     // Ambil daftar departemen untuk select dropdown
-    axios.get("/api/departments").then((res) => setDepartments(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -26,7 +26,7 @@ function DoctorCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/add_doctor", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_doctor", form);
       setAlert({ type: "success", message: "✅ Dokter berhasil ditambahkan!" });
       setTimeout(() => navigate("/doctors"), 2000);
     } catch (error) {

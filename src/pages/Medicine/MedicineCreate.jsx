@@ -14,7 +14,7 @@ export default function MedicineCreate() {
   const [suppliers, setSuppliers] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/suppliers").then((res) => setSuppliers(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers").then((res) => setSuppliers(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -28,7 +28,7 @@ export default function MedicineCreate() {
       supplier_id: form.supplier_id === "" ? null : form.supplier_id,
     };
 
-    await axios.post("/api/medicines", payload);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/medicines", payload);
     navigate("/medicines");
   };
 

@@ -7,7 +7,7 @@ function DepartmentDetail() {
   const [department, setDepartment] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_department/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_department/${id}`).then((res) => {
       setDepartment(res.data[0]);
     });
   }, [id]);

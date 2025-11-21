@@ -32,7 +32,7 @@ function LabTestList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("/api/labtests").then((res) => setLabTests(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/labtests").then((res) => setLabTests(res.data));
   }, []);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ function LabTestList() {
                 <button
                   onClick={() => {
                     if (window.confirm("Are you sure?")) {
-                      axios.delete(`/api/labtests/${t.id}`).then(() => {
+                      axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${t.id}`).then(() => {
                         setLabTests((prev) =>
                           prev.filter((x) => x.id !== t.id)
                         );

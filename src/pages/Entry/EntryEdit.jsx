@@ -23,10 +23,10 @@ export default function EntryEdit() {
     const load = async () => {
       try {
         const [pRes, sRes, mRes, entryRes] = await Promise.all([
-          axios.get("/api/purchases"),
-          axios.get("/api/medicine_stocks"),
-          axios.get("/api/medicines"),
-          axios.get(`/api/entries/${id}`)
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
+          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${id}`)
         ]);
         setPurchases(pRes.data || []);
         setStocks(sRes.data || []);
@@ -62,7 +62,7 @@ export default function EntryEdit() {
         quantity: parseInt(form.quantity, 10),
         entered_by: form.entered_by || null
       };
-      await axios.put(`/api/entries/${id}`, payload);
+      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${id}`, payload);
       alert("Entry updated");
       navigate("/entries");
     } catch (err) {

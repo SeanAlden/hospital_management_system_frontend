@@ -39,7 +39,7 @@ function StaffList() {
 
   const fetchData = () => {
     axios
-      .get("/api/staff")
+      .get("https://hospital-management-system-backend-zic1.onrender.com/api/staff")
       .then((res) => setStaffs(res.data))
       .catch(() => setStaffs([]));
   };
@@ -56,7 +56,7 @@ function StaffList() {
   const handleDelete = async () => {
     if (!selectedId) return;
     try {
-      await axios.delete(`/api/staff/${selectedId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/staff/${selectedId}`);
       setStaffs(staffs.filter((s) => s.id !== selectedId));
       closeModal();
     } catch (err) {

@@ -32,12 +32,12 @@ function BillList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("/api/bills").then((res) => setBills(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/bills").then((res) => setBills(res.data));
   }, []);
 
   const deleteBill = async (id) => {
     if (window.confirm("Are you sure?")) {
-      await axios.delete(`/api/bills/${id}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`);
       setBills(bills.filter((b) => b.id !== id));
     }
   };

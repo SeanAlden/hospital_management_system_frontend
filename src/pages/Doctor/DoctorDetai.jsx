@@ -7,7 +7,7 @@ function DoctorDetail() {
   const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_doctor/${id}`).then((res) => setDoctor(res.data[0]));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_doctor/${id}`).then((res) => setDoctor(res.data[0]));
   }, [id]);
 
   if (!doctor)

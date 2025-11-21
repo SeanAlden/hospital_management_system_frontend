@@ -16,8 +16,8 @@ export default function PurchaseCreate() {
   });
 
   useEffect(() => {
-    axios.get("/api/medicines").then((res) => setMedicines(res.data));
-    axios.get("/api/suppliers").then((res) => setSuppliers(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines").then((res) => setMedicines(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers").then((res) => setSuppliers(res.data));
   }, []);
 
   const handleSubmit = async (e) => {

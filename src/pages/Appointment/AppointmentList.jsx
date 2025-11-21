@@ -14,7 +14,7 @@ function AppointmentList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/appointments").then((res) => setAppointments(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/appointments").then((res) => setAppointments(res.data));
   }, []);
 
   // filter data by search (searching in all fields)
@@ -53,7 +53,7 @@ function AppointmentList() {
   };
 
   const handleDelete = async () => {
-    await axios.delete(`/api/delete_appointment/${selectedId}`);
+    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete_appointment/${selectedId}`);
     setAppointments(appointments.filter((a) => a.id !== selectedId));
     closeModal();
   };

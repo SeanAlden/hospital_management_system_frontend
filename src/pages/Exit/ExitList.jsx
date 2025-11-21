@@ -32,13 +32,13 @@ export default function ExitList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("/api/exits").then((res) => setExits(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/exits").then((res) => setExits(res.data));
   }, []);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-restricted-globals
     if (!confirm("Delete this exit record and restore stock?")) return;
-    await axios.delete(`/api/exits/${id}`);
+    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`);
     setExits(exits.filter((x) => x.id !== id));
   };
 

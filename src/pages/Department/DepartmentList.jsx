@@ -14,7 +14,7 @@ function DepartmentList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/departments").then((res) => setDepartments(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data));
   }, []);
 
   // filter data by search (searching in all fields)
@@ -54,7 +54,7 @@ function DepartmentList() {
 
   const handleDelete = async () => {
     if (selectedId) {
-      await axios.delete(`/api/delete_department/${selectedId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete_department/${selectedId}`);
       setDepartments(departments.filter((d) => d.id !== selectedId));
       closeModal();
     }

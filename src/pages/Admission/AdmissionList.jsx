@@ -32,12 +32,12 @@ function AdmissionList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("/api/admissions").then((res) => setAdmissions(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/admissions").then((res) => setAdmissions(res.data));
   }, []);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure to delete this admission?")) {
-      await axios.delete(`/api/admissions/${id}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`);
       setAdmissions(admissions.filter((a) => a.id !== id));
     }
   };

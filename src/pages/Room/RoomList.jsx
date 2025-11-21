@@ -14,7 +14,7 @@ function RoomList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/rooms").then((res) => setRooms(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/rooms").then((res) => setRooms(res.data));
   }, []);
 
   // filter data by search (searching in all fields)
@@ -54,7 +54,7 @@ function RoomList() {
 
   const handleDelete = async () => {
     if (selectedId) {
-      await axios.delete(`/api/delete_room/${selectedId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete_room/${selectedId}`);
       setRooms(rooms.filter((r) => r.id !== selectedId));
       closeModal();
     }

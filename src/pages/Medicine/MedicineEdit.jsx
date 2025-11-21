@@ -20,8 +20,8 @@ export default function MedicineEdit() {
     const fetchData = async () => {
       try {
         const [medicineRes, supplierRes] = await Promise.all([
-          axios.get(`/api/medicines/${id}`),
-          axios.get("/api/suppliers"),
+          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers"),
         ]);
         setForm({
           name: medicineRes.data.name,
@@ -45,7 +45,7 @@ export default function MedicineEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`/api/medicines/${id}`, form);
+    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`, form);
     navigate("/medicines");
   };
 

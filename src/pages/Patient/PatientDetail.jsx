@@ -62,7 +62,7 @@ function PatientDetail() {
   const [patient, setPatient] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_patient/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_patient/${id}`).then((res) => {
       setPatient(res.data[0]);
     });
   }, [id]);

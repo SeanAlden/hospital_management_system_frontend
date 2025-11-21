@@ -14,7 +14,7 @@ function MedicalRecordList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/medical_records").then((res) => setRecords(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medical_records").then((res) => setRecords(res.data));
   }, []);
 
   // filter data by search (searching in all fields)
@@ -53,7 +53,7 @@ function MedicalRecordList() {
 
   const handleDelete = async () => {
     if (!selectedId) return;
-    await axios.delete(`/api/delete_medical_record/${selectedId}`);
+    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete_medical_record/${selectedId}`);
     setRecords(records.filter((r) => r.id !== selectedId));
     closeModal();
   };

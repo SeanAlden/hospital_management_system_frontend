@@ -442,7 +442,7 @@ function PatientList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("/api/patients").then((res) => {
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => {
       setPatients(res.data || []);
     });
   }, []);
@@ -481,7 +481,7 @@ function PatientList() {
 
   const handleDelete = async () => {
     if (selectedId) {
-      await axios.delete(`/api/delete/${selectedId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete/${selectedId}`);
       setPatients((prev) => prev.filter((p) => p.id !== selectedId));
       closeModal();
     }

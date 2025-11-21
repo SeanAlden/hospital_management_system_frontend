@@ -25,9 +25,9 @@ function AppointmentEdit() {
     const fetchData = async () => {
       try {
         const [appointmentRes, patientsRes, doctorsRes] = await Promise.all([
-          axios.get(`/api/get_appointment/${id}`),
-          axios.get("/api/patients"),
-          axios.get("/api/doctors"),
+          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_appointment/${id}`),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
         ]);
 
         const data = appointmentRes.data[0];
@@ -55,7 +55,7 @@ function AppointmentEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/edit_appointment/${id}`, form);
+      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_appointment/${id}`, form);
       setAlert({ type: "success", message: "Appointment updated successfully!" });
       setTimeout(() => navigate("/appointments"), 1500);
     } catch (err) {

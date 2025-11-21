@@ -18,7 +18,7 @@ export default function SupplierForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // await axios.post("http://localhost:5000/api/suppliers", form);
-    await axios.post("/api/suppliers", form);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers", form);
     navigate("/suppliers");
   };
 

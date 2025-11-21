@@ -7,7 +7,7 @@ export default function ExitDetail() {
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/exits/${id}`).then(res => setItem(res.data));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`).then(res => setItem(res.data));
   }, [id]);
 
   if (!item) return <div className="p-6">Loading...</div>;

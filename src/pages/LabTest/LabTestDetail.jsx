@@ -7,7 +7,7 @@ function LabTestDetail() {
   const [labTest, setLabTest] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/labtests/${id}`).then((res) => setLabTest(res.data));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`).then((res) => setLabTest(res.data));
   }, [id]);
 
   if (!labTest) return <p className="p-6">Loading...</p>;

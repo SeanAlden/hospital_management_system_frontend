@@ -1088,7 +1088,7 @@ function Layout({ children }) {
       }
 
       // Panggil endpoint memakai Authorization header
-      const resp = await axios.get("/api/auth/me", {
+      const resp = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/auth/me", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -1115,7 +1115,7 @@ function Layout({ children }) {
 
   const logout = async () => {
     try {
-      await axios.post("/api/auth/logout");
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/logout");
       localStorage.removeItem("auth_token");
       delete axios.defaults.headers.common["Authorization"];
       navigate("/login");
@@ -1168,7 +1168,7 @@ function Layout({ children }) {
     e.preventDefault();
     setProfileLoading(true);
     try {
-      const resp = await axios.post("/api/users/profile", profileForm);
+      const resp = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/users/profile", profileForm);
       // optimistic: update local user
       setUser((u) => ({
         ...u,
@@ -1235,7 +1235,7 @@ function Layout({ children }) {
         currentPassword: passwordForm.currentPassword,
         newPassword: passwordForm.newPassword,
       };
-      const resp = await axios.post("/api/users/password", payload);
+      const resp = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/users/password", payload);
       setShowPasswordModal(false);
       alert(resp.data?.message || "Password updated");
     } catch (err) {

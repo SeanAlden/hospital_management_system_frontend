@@ -18,9 +18,9 @@ function AdmissionCreate() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/patients").then((res) => setPatients(res.data));
-    axios.get("/api/doctors").then((res) => setDoctors(res.data));
-    axios.get("/api/rooms").then((res) => setRooms(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/rooms").then((res) => setRooms(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -40,7 +40,7 @@ function AdmissionCreate() {
       room_id: form.room_id || null,
       doctor_id: form.doctor_id || null,
     };
-    await axios.post("/api/admissions", payload);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/admissions", payload);
     navigate("/admissions");
   };
 

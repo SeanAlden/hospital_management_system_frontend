@@ -11,8 +11,8 @@ function StaffEdit() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/staff/${id}`).then((res) => setForm(res.data)).catch(() => {});
-    axios.get("/api/departments").then((res) => setDepartments(res.data)).catch(() => {});
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/staff/${id}`).then((res) => setForm(res.data)).catch(() => {});
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data)).catch(() => {});
   }, [id]);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +20,7 @@ function StaffEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/api/staff/${id}`, form);
+      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/staff/${id}`, form);
       setAlert({ type: "success", message: "Staff updated!" });
       setTimeout(() => navigate("/staff"), 900);
     } catch (err) {

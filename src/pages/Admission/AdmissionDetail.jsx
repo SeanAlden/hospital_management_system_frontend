@@ -7,7 +7,7 @@ function AdmissionDetail() {
   const [admission, setAdmission] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/admissions/${id}`).then((res) => setAdmission(res.data));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`).then((res) => setAdmission(res.data));
   }, [id]);
 
   if (!admission) return <div className="p-6">Loading...</div>;

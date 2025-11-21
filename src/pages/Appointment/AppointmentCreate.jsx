@@ -17,8 +17,8 @@ function AppointmentCreate() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/api/patients").then((res) => setPatients(res.data));
-    axios.get("/api/doctors").then((res) => setDoctors(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -26,7 +26,7 @@ function AppointmentCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("/api/add_appointment", form);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_appointment", form);
     setAlert({ type: "success", message: "Appointment created successfully!" });
     setTimeout(() => navigate("/appointments"), 1500);
   };

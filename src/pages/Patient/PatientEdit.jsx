@@ -133,7 +133,7 @@ function PatientEdit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/api/get_patient/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_patient/${id}`).then((res) => {
       const data = res.data[0];
       setForm(data);
     });
@@ -145,7 +145,7 @@ function PatientEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/edit_user/${id}`, form);
+      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_user/${id}`, form);
       setAlert({
         type: "success",
         message: "✅ Data pasien berhasil diperbarui!",

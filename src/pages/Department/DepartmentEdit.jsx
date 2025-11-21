@@ -10,7 +10,7 @@ function DepartmentEdit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/api/get_department/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_department/${id}`).then((res) => {
       setForm(res.data[0]);
     });
   }, [id]);
@@ -20,7 +20,7 @@ function DepartmentEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/edit_department/${id}`, form);
+      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_department/${id}`, form);
       setAlert({ type: "success", message: "✅ Departemen berhasil diperbarui!" });
       setTimeout(() => navigate("/departments"), 2000);
     } catch (error) {

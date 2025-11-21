@@ -15,8 +15,8 @@ export default function ExitCreate() {
     const load = async () => {
       // we'll get medicine_stocks and medicines to show label
       const [stocksRes, medsRes] = await Promise.all([
-        axios.get("/api/medicine_stocks"),
-        axios.get("/api/medicines"),
+        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
+        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
       ]);
       // Build quick map of medicine names
       const meds = (medsRes.data || []).reduce((acc, m) => {
@@ -56,7 +56,7 @@ export default function ExitCreate() {
       reason: form.reason || null,
     };
 
-    await axios.post("/api/exits", payload);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/exits", payload);
     navigate("/exit-stocks");
   };
 

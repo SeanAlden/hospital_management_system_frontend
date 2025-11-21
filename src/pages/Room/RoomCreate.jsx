@@ -13,7 +13,7 @@ function RoomCreate() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post("/api/add_room", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_room", form);
       setAlert({ type: "success", message: "Room added successfully!" });
       setTimeout(() => navigate("/rooms"), 1500);
     } catch(err) {

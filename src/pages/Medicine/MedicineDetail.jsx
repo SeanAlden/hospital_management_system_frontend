@@ -110,11 +110,11 @@ export default function MedicineDetail() {
     const fetchData = async () => {
       try {
         // fetch data medicine
-        const medRes = await axios.get(`/api/medicines/${id}`);
+        const medRes = await axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`);
         setMedicine(medRes.data);
 
         // fetch stock terkait medicine ini saja
-        const stockRes = await axios.get(`/api/medicine_stocks?medicine_id=${id}`);
+        const stockRes = await axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks?medicine_id=${id}`);
         setStocks(stockRes.data || []);
       } catch (err) {
         console.error("Error fetching medicine details:", err);

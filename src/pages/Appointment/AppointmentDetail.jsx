@@ -7,7 +7,7 @@ function AppointmentDetail() {
   const [appointment, setAppointment] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_appointment/${id}`).then((res) => setAppointment(res.data[0]));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_appointment/${id}`).then((res) => setAppointment(res.data[0]));
   }, [id]);
 
   if (!appointment)

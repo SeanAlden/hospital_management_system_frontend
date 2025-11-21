@@ -13,7 +13,7 @@ function DepartmentCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/add_department", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_department", form);
       setAlert({ type: "success", message: "✅ Departemen berhasil ditambahkan!" });
       setTimeout(() => navigate("/departments"), 2000);
     } catch (error) {

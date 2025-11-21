@@ -42,7 +42,7 @@ export default function PurchaseList() {
   const fetchPurchases = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("/api/purchases");
+      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases");
       setPurchases(res.data || []);
     } catch (err) {
       console.error("Failed to load purchases", err);
@@ -61,7 +61,7 @@ export default function PurchaseList() {
   const doDelete = async () => {
     if (!deleteId) return;
     try {
-      await axios.delete(`/api/purchases/${deleteId}`);
+      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${deleteId}`);
       setPurchases((prev) => prev.filter((p) => p.id !== deleteId));
       setDeleteId(null);
     } catch (err) {

@@ -16,10 +16,10 @@ function LabTestEdit() {
   });
 
   useEffect(() => {
-    axios.get("/api/patients").then((res) => setPatients(res.data));
-    axios.get("/api/doctors").then((res) => setDoctors(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
 
-    axios.get(`/api/labtests/${id}`).then((res) => {
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`).then((res) => {
       const data = res.data;
       setForm({
         patient_id: data.patient_id,
@@ -33,7 +33,7 @@ function LabTestEdit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`/api/labtests/${id}`, form).then(() => navigate("/labtests"));
+    axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`, form).then(() => navigate("/labtests"));
   };
 
   return (

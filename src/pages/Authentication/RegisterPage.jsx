@@ -180,7 +180,7 @@ export default function RegisterPage() {
       return;
     }
     try {
-      await axios.post("/api/auth/register", {
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/register", {
         username: form.username,
         email: form.email || undefined,
         phone: form.phone || undefined,

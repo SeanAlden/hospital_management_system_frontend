@@ -7,7 +7,7 @@ function MedicalRecordDetail() {
   const [record, setRecord] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_medical_record/${id}`).then(res => setRecord(res.data[0]));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_medical_record/${id}`).then(res => setRecord(res.data[0]));
   }, [id]);
 
   if (!record) return <div className="flex justify-center items-center min-h-screen text-gray-500">Loading...</div>;

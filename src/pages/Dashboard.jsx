@@ -199,10 +199,10 @@ export default function Dashboard() {
       setLoading(true);
       const [appointmentsRes, patientsRes, doctorsRes, departmentsRes] =
         await Promise.all([
-          tryFetch(["/api/appointments", "/appointments"]),
-          tryFetch(["/api/patients", "/patients"]),
-          tryFetch(["/api/doctors", "/doctors"]),
-          tryFetch(["/api/departments", "/departments"]),
+          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/appointments", "https://hospital-management-system-backend-zic1.onrender.com/appointments"]),
+          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/patients", "https://hospital-management-system-backend-zic1.onrender.com/patients"]),
+          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/doctors", "https://hospital-management-system-backend-zic1.onrender.com/doctors"]),
+          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/departments", "https://hospital-management-system-backend-zic1.onrender.com/departments"]),
         ]);
 
       setCounts({

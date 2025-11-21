@@ -16,8 +16,8 @@ function BillCreate() {
 
   useEffect(() => {
     // Ambil data pasien dan admissions (untuk pilihan admission jika ada)
-    axios.get("/api/patients").then((res) => setPatients(res.data)).catch(()=>{/* ignore */});
-    axios.get("/api/admissions").then((res) => setAdmissions(res.data)).catch(()=>{/* ignore */});
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data)).catch(()=>{/* ignore */});
+    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/admissions").then((res) => setAdmissions(res.data)).catch(()=>{/* ignore */});
   }, []);
 
   // Hitung total
@@ -58,7 +58,7 @@ function BillCreate() {
         admission_id: form.admission_id || null,
         items: form.items.map(i => ({ description: i.description, amount: parseFloat(i.amount || 0).toFixed(2) }))
       };
-      await axios.post("/api/bills", payload);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/bills", payload);
       setAlert({ type: "success", message: "✅ Bill created successfully" });
       setTimeout(() => navigate("/bills"), 1200);
     } catch (err) {

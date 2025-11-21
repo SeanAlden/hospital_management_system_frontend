@@ -10,7 +10,7 @@ function RoomEdit() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/get_room/${id}`).then(res => setForm(res.data[0]));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_room/${id}`).then(res => setForm(res.data[0]));
   }, [id]);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +18,7 @@ function RoomEdit() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post(`/api/edit_room/${id}`, form);
+      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_room/${id}`, form);
       setAlert({ type: "success", message: "Room updated successfully!" });
       setTimeout(() => navigate("/rooms"), 1500);
     } catch(err) {

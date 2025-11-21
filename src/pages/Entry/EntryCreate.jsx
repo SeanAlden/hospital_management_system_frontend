@@ -173,8 +173,8 @@ export default function EntryCreate() {
   useEffect(() => {
     const load = async () => {
       const [medRes, purRes] = await Promise.all([
-        axios.get("/api/medicines"),
-        axios.get("/api/purchases"),
+        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
+        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases"),
       ]);
       setMedicines(medRes.data || []);
       setPurchases(purRes.data || []);
@@ -203,7 +203,7 @@ export default function EntryCreate() {
 
     console.log("ENTRY payload:", payload);
 
-    await axios.post("/api/entries", payload);
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/entries", payload);
     navigate("/entry-stocks");
   };
 

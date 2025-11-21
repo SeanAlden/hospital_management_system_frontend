@@ -21,8 +21,8 @@ function MedicalRecordCreate() {
     const fetchData = async () => {
       try {
         const [patientsRes, doctorsRes] = await Promise.all([
-          axios.get("/api/patients"),
-          axios.get("/api/doctors"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
+          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
         ]);
         setPatients(patientsRes.data);
         setDoctors(doctorsRes.data);
@@ -39,7 +39,7 @@ function MedicalRecordCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/add_medical_record", form);
+      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_medical_record", form);
       setAlert({ type: "success", message: "Medical record added!" });
       setTimeout(() => navigate("/medical_records"), 1500);
     } catch (err) {
