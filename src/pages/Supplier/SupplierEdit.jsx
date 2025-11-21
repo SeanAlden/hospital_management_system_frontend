@@ -8,7 +8,7 @@ export default function SupplierEdit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/suppliers/${id}`).then((res) => setForm(res.data));
+    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`).then((res) => setForm(res.data));
   }, [id]);
 
   const handleChange = (e) =>
@@ -16,7 +16,7 @@ export default function SupplierEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:5000/api/suppliers/${id}`, form);
+    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`, form);
     navigate("/suppliers");
   };
 

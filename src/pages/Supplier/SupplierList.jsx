@@ -33,7 +33,7 @@ export default function SupplierList() {
 
   const fetchSuppliers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/suppliers");
+      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers");
       setSuppliers(res.data);
     } catch (err) {
       console.error(err);
@@ -44,7 +44,7 @@ export default function SupplierList() {
 
   const deleteSupplier = async (id) => {
     if (!window.confirm("Yakin ingin menghapus supplier ini?")) return;
-    await axios.delete(`http://localhost:5000/api/suppliers/${id}`);
+    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`);
     fetchSuppliers();
   };
 
