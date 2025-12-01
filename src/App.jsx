@@ -1,27 +1,3 @@
-// import React from 'react'
-// import { BrowserRouter, Routes, Route } from 'react-router-dom'
-// import 'bootstrap/dist/css/bootstrap.min.css'
-
-// import PatientList from "./pages/Patient/PatientList";
-// import PatientCreate from "./pages/Patient/PatientCreate";
-// import PatientEdit from "./pages/Patient/PatientEdit";
-// import PatientDetail from "./pages/Patient/PatientDetail";
-
-// function App() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path='/' element={<PatientList />} />
-//         <Route path='/create' element={<PatientCreate />} />
-//         <Route path='/edit/:id' element={<PatientEdit />} />
-//         <Route path='/read/:id' element={<PatientDetail />} />
-//       </Routes>
-//     </BrowserRouter>
-//   )
-// }
-
-// export default App
-
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
