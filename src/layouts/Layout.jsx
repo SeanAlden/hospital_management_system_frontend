@@ -1459,9 +1459,9 @@ function Layout({ children }) {
           <div className="text-lg font-medium text-gray-700">FAQ</div>
 
           <div className="relative flex items-center space-x-4">
-            <button className="p-2 rounded-full hover:bg-gray-100">
+            {/* <button className="p-2 rounded-full hover:bg-gray-100">
               <FaBell size={18} className="text-gray-700" />
-            </button>
+            </button> */}
 
             <div
               className="profile-btn cursor-pointer"
