@@ -1018,7 +1018,7 @@
 // export default Layout;
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { FaBars, FaBell, FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { FaBars, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
