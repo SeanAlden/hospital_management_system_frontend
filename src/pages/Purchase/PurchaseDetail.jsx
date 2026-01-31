@@ -9,6 +9,15 @@ export default function PurchaseDetail() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "-";
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  };
+
   useEffect(() => {
     async function load() {
       try {
@@ -72,7 +81,7 @@ export default function PurchaseDetail() {
 
         <div>
           <div className="text-xs text-gray-500">Expiry Date</div>
-          <div>{purchase.expiry_date || "-"}</div>
+          <div>{formatIndoDate(purchase.expiry_date) || "-"}</div>
         </div>
 
         {/* <div>

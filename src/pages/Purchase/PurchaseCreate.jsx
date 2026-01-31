@@ -22,7 +22,7 @@ export default function PurchaseCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("/api/purchases", {
+    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/purchases", {
       medicine_id: form.medicine_id,
       supplier_id: form.supplier_id || null,
       quantity: parseInt(form.quantity, 10),

@@ -23,6 +23,15 @@ export default function ExitList() {
     );
   }, [exits, search]);
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "-";
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  };
+
   // pagination slice
   const totalItems = filtered.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
@@ -113,7 +122,7 @@ export default function ExitList() {
                 <td className="p-3">{e.id}</td>
                 <td className="p-3">{e.medicine_name || "-"}</td>
                 <td className="p-3">
-                  {e.stock_expiry ||
+                  {formatIndoDate(e.stock_expiry) ||
                     (e.stock_expiry === null ? "No expiry" : "-")}
                 </td>
                 <td className="p-3 font-medium">{e.quantity}</td>

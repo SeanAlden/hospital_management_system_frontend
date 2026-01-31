@@ -40,6 +40,15 @@ export default function EntryList() {
     fetchEntries();
   }, []);
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "-";
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  };
+
   const fetchEntries = async () => {
     setLoading(true);
     try {
@@ -157,7 +166,7 @@ export default function EntryList() {
                   <td className="px-3 py-2">
                     {e.purchase_id ? `#${e.purchase_id}` : "-"}
                   </td>
-                  <td className="px-3 py-2">{e.stock_expiry || "-"}</td>
+                  <td className="px-3 py-2">{formatIndoDate(e.stock_expiry) || "-"}</td>
                   <td className="px-3 py-2">{e.quantity}</td>
                   <td className="px-3 py-2">
                     {e.entered_at
@@ -191,12 +200,11 @@ export default function EntryList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

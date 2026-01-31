@@ -71,6 +71,15 @@ export default function PurchaseList() {
     }
   };
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "-";
+    return new Intl.DateTimeFormat("id-ID", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(dateStr));
+  };
+
   useEffect(() => {
     // if current page exceeds total pages after filtering or itemsPerPage change, clamp it
     if (currentPage > totalPages) setCurrentPage(totalPages);
@@ -173,7 +182,7 @@ export default function PurchaseList() {
                     Rp {p.unit_price?.toLocaleString?.() ?? p.unit_price}
                   </td>
                   <td className="py-3 px-4">
-                    {p.expiry_date ? p.expiry_date : "-"}
+                    {p.expiry_date ? formatIndoDate(p.expiry_date) : "-"}
                   </td>
                   <td className="py-3 px-4">
                     {p.purchased_at
@@ -213,12 +222,11 @@ export default function PurchaseList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">
