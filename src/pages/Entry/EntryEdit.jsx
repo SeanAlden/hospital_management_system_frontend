@@ -54,6 +54,10 @@ export default function EntryEdit() {
     ev.preventDefault();
     // Validate: if purchase chosen, ensure available (consider original entry had reduced available)
     try {
+      const selectedPurchase = purchases.find(
+        (p) => p.id === Number(form.purchase_id)
+      );
+
       // get selected purchase info
       const payload = {
         purchase_id: form.purchase_id || null,
@@ -69,6 +73,10 @@ export default function EntryEdit() {
       alert(err.response?.data?.message || "Failed to update entry");
     }
   };
+
+  const selectedPurchase = purchases.find(
+    (p) => p.id === Number(form.purchase_id)
+  );
 
   if (loading) return <div className="p-6 text-gray-500">Loading...</div>;
 
@@ -102,7 +110,7 @@ export default function EntryEdit() {
 
         <div>
           <label className="block text-sm font-medium mb-1">
-            Quantity to entry (max: {form?.available_qty || 0})
+            Quantity to entry (max: {selectedPurchase?.available_qty || 0})
           </label>
           <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
         </div>
