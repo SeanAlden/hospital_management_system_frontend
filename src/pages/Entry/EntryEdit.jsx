@@ -93,12 +93,12 @@ export default function EntryEdit() {
             ))}
           </select>
 
-          <select name="medicine_stock_id" value={form.medicine_stock_id} onChange={handleChange} className="w-full border p-2 rounded">
+          {/* <select name="medicine_stock_id" value={form.medicine_stock_id} onChange={handleChange} className="w-full border p-2 rounded">
             <option value="">Select target batch</option>
             {stocks.filter(s => s.medicine_id === Number(form.medicine_id)).map(s => (
               <option key={s.id} value={s.id}>#{s.id} - expiry:{s.expiry_date || "-"} - current:{s.current_stock}</option>
             ))}
-          </select>
+          </select> */}
         </div>
 
         <div>
@@ -108,7 +108,7 @@ export default function EntryEdit() {
           <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
         </div>
 
-        <input type="text" name="entered_by" value={form.entered_by} onChange={handleChange} placeholder="Entered by (optional)" className="w-full border p-2 rounded" />
+        {/* <input type="text" name="entered_by" value={form.entered_by} onChange={handleChange} placeholder="Entered by (optional)" className="w-full border p-2 rounded" /> */}
 
         <div className="flex justify-between">
           <button type="button" onClick={() => navigate(-1)} className="px-4 py-2 border rounded">Cancel</button>
