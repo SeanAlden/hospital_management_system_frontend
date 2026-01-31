@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ExitCreate() {
   const navigate = useNavigate();
+  const [medicines, setMedicines] = useState([]);
   const [stocks, setStocks] = useState([]); // stocks include medicine info
   const [form, setForm] = useState({
     medicine_stock_id: "",
@@ -87,7 +88,7 @@ export default function ExitCreate() {
             </option>
           ))}
         </select>
-        
+
         <div>
           <label className="block text-sm font-medium">
             Select Batch (medicine - expiry - current)

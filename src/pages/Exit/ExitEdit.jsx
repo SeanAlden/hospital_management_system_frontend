@@ -6,6 +6,7 @@ export default function ExitEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [form, setForm] = useState({ medicine_stock_id: "", quantity: 0, reason: "" });
+  const [medicines, setMedicines] = useState([]);
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
@@ -31,6 +32,8 @@ export default function ExitEdit() {
     return dateStr.split('T')[0];
   };
 
+  const handleChange = (e) => setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.medicine_stock_id) return alert("Select batch");
@@ -49,7 +52,7 @@ export default function ExitEdit() {
           <option value="">Select medicine</option>
           {medicines.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
-        
+
         <div>
           <label className="block text-sm font-medium">Select Batch</label>
           {/* <select value={form.medicine_stock_id} onChange={(e)=>setForm({...form, medicine_stock_id: e.target.value})} className="w-full border p-2 rounded" required>
@@ -81,17 +84,17 @@ export default function ExitEdit() {
 
         <div>
           <label className="block text-sm font-medium">Quantity (max depends on batch)</label>
-          <input type="number" min="1" max={selectedStock ? selectedStock.current_stock + form.quantity : undefined} value={form.quantity} onChange={(e)=>setForm({...form, quantity: e.target.value})} className="w-full border p-2 rounded" required/>
+          <input type="number" min="1" max={selectedStock ? selectedStock.current_stock + form.quantity : undefined} value={form.quantity} onChange={(e) => setForm({ ...form, quantity: e.target.value })} className="w-full border p-2 rounded" required />
           <p className="text-xs text-gray-500 mt-1">When updating, server will check availability (old quantity will be reverted before applying new).</p>
         </div>
 
         <div>
           <label className="block text-sm font-medium">Reason</label>
-          <input type="text" value={form.reason} onChange={(e)=>setForm({...form, reason: e.target.value})} className="w-full border p-2 rounded"/>
+          <input type="text" value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="w-full border p-2 rounded" />
         </div>
 
         <div className="flex gap-2">
-          <button type="button" onClick={()=>navigate(-1)} className="px-4 py-2 border rounded">Cancel</button>
+          <button type="button" onClick={() => navigate(-1)} className="px-4 py-2 border rounded">Cancel</button>
           <button type="submit" className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Update Exit</button>
         </div>
       </form>
