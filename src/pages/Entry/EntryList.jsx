@@ -89,11 +89,8 @@ export default function EntryList() {
             to="/entry-stocks/create"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
-            New Entry
+            + New Entry
           </Link>
-          <button onClick={fetchEntries} className="px-4 py-2 border rounded">
-            Refresh
-          </button>
         </div>
       </div>
 

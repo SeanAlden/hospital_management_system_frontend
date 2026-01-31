@@ -155,7 +155,7 @@ import axios from "axios";
 function StatCard({ icon, title, subtitle, value, bgColor }) {
   return (
     <div
-      className={`flex items-center justify-between gap-6 p-6 rounded-2xl shadow-lg text-white ${bgColor} transition-transform hover:scale-[1.02]`}
+      className={`flex items-center justify-between gap-6 p-6 rounded-2xl text-white ${bgColor} transition-transform hover:scale-[1.02]`}
     >
       <div className="flex items-center gap-5">
         <img
