@@ -112,9 +112,10 @@ export default function EntryEdit() {
           <label className="block text-sm font-medium mb-1">
             Quantity to entry (max: {selectedPurchase?.available_qty || 0})
           </label>
-          <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
+          <input type="number" name="quantity" min="1"
+            max={selectedPurchase?.available_qty || undefined} value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
         </div>
-        
+
         {/* <input type="text" name="entered_by" value={form.entered_by} onChange={handleChange} placeholder="Entered by (optional)" className="w-full border p-2 rounded" /> */}
 
         <div className="flex justify-between">
