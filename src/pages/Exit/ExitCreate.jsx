@@ -71,6 +71,23 @@ export default function ExitCreate() {
       <h2 className="text-2xl mb-4 font-semibold">Record Stock Exit</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Pilih Obat */}
+        <select
+          value={form.medicine_id}
+          onChange={(e) =>
+            setForm({ ...form, medicine_id: e.target.value, purchase_id: "" })
+          }
+          className="w-full border p-2 rounded"
+          required
+        >
+          <option value="">Select medicine</option>
+          {medicines.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name}
+            </option>
+          ))}
+        </select>
+        
         <div>
           <label className="block text-sm font-medium">
             Select Batch (medicine - expiry - current)

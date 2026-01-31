@@ -45,6 +45,11 @@ export default function ExitEdit() {
       <h2 className="text-2xl mb-4">Edit Exit</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
+        <select name="medicine_id" value={form.medicine_id} onChange={handleChange} className="w-full border p-2 rounded" required>
+          <option value="">Select medicine</option>
+          {medicines.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
+        </select>
+        
         <div>
           <label className="block text-sm font-medium">Select Batch</label>
           {/* <select value={form.medicine_stock_id} onChange={(e)=>setForm({...form, medicine_stock_id: e.target.value})} className="w-full border p-2 rounded" required>
@@ -55,7 +60,7 @@ export default function ExitEdit() {
               </option>
             ))}
           </select> */}
-          
+
           <select
             name="medicine_stock_id"
             value={form.medicine_stock_id}
