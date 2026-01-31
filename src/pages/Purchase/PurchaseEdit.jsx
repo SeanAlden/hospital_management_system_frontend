@@ -271,6 +271,8 @@ export default function PurchaseEdit() {
       <h2 className="text-2xl font-semibold mb-4">Edit Purchase</h2>
 
       <form className="space-y-3" onSubmit={handleSubmit}>
+        {/* Label: Select Medicine */}
+        <label className="block font-medium">Select Medicine</label>
         <select
           name="medicine_id"
           required
@@ -286,6 +288,8 @@ export default function PurchaseEdit() {
           ))}
         </select>
 
+        {/* Label: Select Supplier */}
+        <label className="block font-medium">Select Supplier</label>
         <select
           name="supplier_id"
           value={form.supplier_id}
@@ -300,16 +304,8 @@ export default function PurchaseEdit() {
           ))}
         </select>
 
-        <input
-          type="number"
-          name="quantity"
-          required
-          value={form.quantity}
-          onChange={handleChange}
-          className="w-full border p-2 rounded"
-          placeholder="Quantity"
-        />
-
+        {/* Label: Quantity */}
+        <label className="block font-medium">Quantity</label>
         <input
           type="number"
           name="available_qty"
@@ -319,6 +315,8 @@ export default function PurchaseEdit() {
           placeholder="Available quantity"
         />
 
+        {/* Label: Price */}
+        <label className="block font-medium">Unit Price</label>
         <input
           type="number"
           step="0.01"
@@ -329,6 +327,8 @@ export default function PurchaseEdit() {
           placeholder="Unit price"
         />
 
+        {/* Label: Expired Date */}
+        <label className="block font-medium">Expired Date</label>
         <input
           type="date"
           name="expiry_date"
@@ -337,13 +337,13 @@ export default function PurchaseEdit() {
           className="w-full border p-2 rounded"
         />
 
-        <input
+        {/* <input
           type="date"
           name="purchased_at"
           value={form.purchased_at}
           onChange={handleChange}
           className="w-full border p-2 rounded"
-        />
+        /> */}
 
         <div className="flex justify-between pt-4">
           <button

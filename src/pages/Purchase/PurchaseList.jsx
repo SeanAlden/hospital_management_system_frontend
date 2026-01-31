@@ -147,7 +147,6 @@ export default function PurchaseList() {
               <th className="py-3 px-4 text-left text-white">ID</th>
               <th className="py-3 px-4 text-left text-white">Medicine</th>
               <th className="py-3 px-4 text-left text-white">Supplier</th>
-              <th className="py-3 px-4 text-left text-white">Qty</th>
               <th className="py-3 px-4 text-left text-white">Available</th>
               <th className="py-3 px-4 text-left text-white">Unit Price</th>
               <th className="py-3 px-4 text-left text-white">Expiry</th>
@@ -176,7 +175,6 @@ export default function PurchaseList() {
                     {p.medicine_name || "-"}
                   </td>
                   <td className="py-3 px-4">{p.supplier_name || "-"}</td>
-                  <td className="py-3 px-4">{p.quantity}</td>
                   <td className="py-3 px-4">{p.available_qty}</td>
                   <td className="py-3 px-4">
                     Rp {p.unit_price?.toLocaleString?.() ?? p.unit_price}

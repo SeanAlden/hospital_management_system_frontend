@@ -64,11 +64,6 @@ export default function PurchaseDetail() {
 
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <div className="text-xs text-gray-500">Quantity (total)</div>
-            <div className="font-medium">{purchase.quantity}</div>
-          </div>
-
-          <div>
             <div className="text-xs text-gray-500">Available</div>
             <div className="font-medium">{purchase.available_qty}</div>
           </div>

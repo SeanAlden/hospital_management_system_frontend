@@ -34,7 +34,7 @@ export default function EntryEdit() {
         const e = entryRes.data;
         setForm({
           medicine_id: e.medicine_id || "",
-          purchase_id: e.purchase_id || "" ,
+          purchase_id: e.purchase_id || "",
           medicine_stock_id: e.medicine_stock_id || "",
           quantity: e.quantity || 0,
           entered_by: e.entered_by || ""
@@ -82,21 +82,31 @@ export default function EntryEdit() {
           {medicines.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
         </select>
 
-        <select name="purchase_id" value={form.purchase_id} onChange={handleChange} className="w-full border p-2 rounded">
-          <option value="">Select Purchase (optional)</option>
-          {purchases.filter(p=>p.medicine_id === Number(form.medicine_id)).map(p => (
-            <option key={p.id} value={p.id}>#{p.id} - avail:{p.available_qty} - expiry:{p.expiry_date || "-"}</option>
-          ))}
-        </select>
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Select Purchase Batch (will determine expiry)
+          </label>
+          <select name="purchase_id" value={form.purchase_id} onChange={handleChange} className="w-full border p-2 rounded">
+            <option value="">Select Purchase (optional)</option>
+            {purchases.filter(p => p.medicine_id === Number(form.medicine_id)).map(p => (
+              <option key={p.id} value={p.id}>#{p.id} - avail:{p.available_qty} - expiry:{p.expiry_date || "-"}</option>
+            ))}
+          </select>
 
-        <select name="medicine_stock_id" value={form.medicine_stock_id} onChange={handleChange} className="w-full border p-2 rounded">
-          <option value="">Select target batch</option>
-          {stocks.filter(s=>s.medicine_id === Number(form.medicine_id)).map(s => (
-            <option key={s.id} value={s.id}>#{s.id} - expiry:{s.expiry_date || "-"} - current:{s.current_stock}</option>
-          ))}
-        </select>
+          <select name="medicine_stock_id" value={form.medicine_stock_id} onChange={handleChange} className="w-full border p-2 rounded">
+            <option value="">Select target batch</option>
+            {stocks.filter(s => s.medicine_id === Number(form.medicine_id)).map(s => (
+              <option key={s.id} value={s.id}>#{s.id} - expiry:{s.expiry_date || "-"} - current:{s.current_stock}</option>
+            ))}
+          </select>
+        </div>
 
-        <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Quantity to entry (max: {form?.available_qty || 0})
+          </label>
+          <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
+        </div>
 
         <input type="text" name="entered_by" value={form.entered_by} onChange={handleChange} placeholder="Entered by (optional)" className="w-full border p-2 rounded" />
 
