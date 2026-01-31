@@ -182,6 +182,12 @@ export default function EntryCreate() {
     load();
   }, []);
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "No Expiry";
+    // Mengambil YYYY-MM-DD dari string ISO
+    return dateStr.split('T')[0];
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -243,7 +249,7 @@ export default function EntryCreate() {
           <label className="block text-sm font-medium mb-1">
             Select Purchase Batch (will determine expiry)
           </label>
-          <select
+          {/* <select
             value={form.purchase_id}
             onChange={(e) =>
               setForm({ ...form, purchase_id: e.target.value, quantity: 0 })
@@ -256,6 +262,21 @@ export default function EntryCreate() {
               <option key={p.id} value={p.id}>
                 #{p.id} — expiry: {p.expiry_date || "No expiry"} — available:{" "}
                 {p.available_qty}
+              </option>
+            ))}
+          </select> */}
+          <select
+            value={form.purchase_id}
+            onChange={(e) =>
+              setForm({ ...form, purchase_id: e.target.value, quantity: 0 })
+            }
+            className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            required
+          >
+            <option value="">-- Select purchase batch --</option>
+            {availablePurchases.map((p) => (
+              <option key={p.id} value={p.id}>
+                Purchase {p.id} — {formatIndoDate(p.expiry_date)} — {p.available_qty} Items
               </option>
             ))}
           </select>

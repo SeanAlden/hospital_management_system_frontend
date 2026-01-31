@@ -26,6 +26,11 @@ export default function ExitEdit() {
 
   const selectedStock = stocks.find(s => s.id === Number(form.medicine_stock_id));
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "No Expiry";
+    return dateStr.split('T')[0];
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.medicine_stock_id) return alert("Select batch");
@@ -42,13 +47,29 @@ export default function ExitEdit() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Select Batch</label>
-          <select value={form.medicine_stock_id} onChange={(e)=>setForm({...form, medicine_stock_id: e.target.value})} className="w-full border p-2 rounded" required>
+          {/* <select value={form.medicine_stock_id} onChange={(e)=>setForm({...form, medicine_stock_id: e.target.value})} className="w-full border p-2 rounded" required>
             <option value="">-- select --</option>
             {stocks.map(s => (
               <option key={s.id} value={s.id}>
                 #{s.id} - expiry: {s.expiry_date || "No expiry"} - current: {s.current_stock}
               </option>
             ))}
+          </select> */}
+          <select
+            name="medicine_stock_id"
+            value={form.medicine_stock_id}
+            onChange={(e) => setForm({ ...form, medicine_stock_id: e.target.value })}
+            className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+          >
+            <option value="">Select Purchase (optional)</option>
+            {stocks
+              .filter(p => p.medicine_id === Number(form.medicine_id))
+              .map(p => (
+                <option key={p.id} value={p.id}>
+                  Purchase {p.id} — {formatIndoDate(p.expiry_date)} — {p.available_qty} Items
+                </option>
+              ))
+            }
           </select>
         </div>
 

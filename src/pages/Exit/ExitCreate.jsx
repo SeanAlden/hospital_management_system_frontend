@@ -39,6 +39,12 @@ export default function ExitCreate() {
     (s) => s.id === Number(form.medicine_stock_id)
   );
 
+  const formatIndoDate = (dateStr) => {
+    if (!dateStr) return "No Expiry";
+    // Mengambil YYYY-MM-DD dari string ISO
+    return dateStr.split('T')[0];
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.medicine_stock_id) return alert("Select stock batch");
@@ -69,7 +75,7 @@ export default function ExitCreate() {
           <label className="block text-sm font-medium">
             Select Batch (medicine - expiry - current)
           </label>
-          <select
+          {/* <select
             // value={form.medicine_stock_id} onChange={(e) =>
             // setForm({...form, medicine_stock_id: e.target.value, quantity: 0})}
             value={form.medicine_stock_id}
@@ -88,6 +94,21 @@ export default function ExitCreate() {
               <option key={s.id} value={s.id}>
                 {s.medicine_name} — expiry: {s.expiry_date || "No expiry"} —
                 current: {s.current_stock}
+              </option>
+            ))}
+          </select> */}
+          <select
+            value={form.medicine_stock_id}
+            onChange={(e) =>
+              setForm({ ...form, medicine_stock_id: e.target.value, quantity: 0 })
+            }
+            className="w-full border p-2 rounded focus:ring-2 focus:ring-blue-500 outline-none"
+            required
+          >
+            <option value="">-- Select purchase batch --</option>
+            {stocks.map((p) => (
+              <option key={p.id} value={p.id}>
+                Purchase {p.id} — {formatIndoDate(p.expiry_date)} — {p.available_qty} Items
               </option>
             ))}
           </select>
