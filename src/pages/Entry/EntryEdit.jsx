@@ -108,7 +108,6 @@ export default function EntryEdit() {
           <input type="number" name="quantity" value={form.quantity} onChange={handleChange} className="w-full border p-2 rounded" required />
         </div>
         
-
         {/* <input type="text" name="entered_by" value={form.entered_by} onChange={handleChange} placeholder="Entered by (optional)" className="w-full border p-2 rounded" /> */}
 
         <div className="flex justify-between">
