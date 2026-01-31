@@ -55,6 +55,7 @@ export default function ExitEdit() {
               </option>
             ))}
           </select> */}
+          
           <select
             name="medicine_stock_id"
             value={form.medicine_stock_id}

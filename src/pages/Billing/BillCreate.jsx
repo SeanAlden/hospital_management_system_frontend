@@ -58,7 +58,7 @@ function BillCreate() {
         admission_id: form.admission_id || null,
         items: form.items.map(i => ({ description: i.description, amount: parseFloat(i.amount || 0).toFixed(2) }))
       };
-      await 
+      await
       post("https://hospital-management-system-backend-zic1.onrender.com/api/bills", payload);
       setAlert({ type: "success", message: "✅ Bill created successfully" });
       setTimeout(() => navigate("/bills"), 1200);
