@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function MedicineEdit() {
   const { id } = useParams();
@@ -20,8 +21,8 @@ export default function MedicineEdit() {
     const fetchData = async () => {
       try {
         const [medicineRes, supplierRes] = await Promise.all([
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers"),
+          axios.get(`${BASE_URL}/api/medicines/${id}`),
+          axios.get(`${BASE_URL}/api/suppliers`),
         ]);
         setForm({
           name: medicineRes.data.name,
@@ -45,7 +46,7 @@ export default function MedicineEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`, form);
+    await axios.put(`${BASE_URL}/api/medicines/${id}`, form);
     navigate("/medicines");
   };
 

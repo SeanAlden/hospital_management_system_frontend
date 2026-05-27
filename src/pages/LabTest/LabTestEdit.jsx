@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function LabTestEdit() {
   const { id } = useParams();
@@ -16,10 +17,10 @@ function LabTestEdit() {
   });
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
+    axios.get(`${BASE_URL}/api/patients`).then((res) => setPatients(res.data));
+    axios.get(`${BASE_URL}/api/doctors`).then((res) => setDoctors(res.data));
 
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/api/labtests/${id}`).then((res) => {
       const data = res.data;
       setForm({
         patient_id: data.patient_id,
@@ -33,7 +34,7 @@ function LabTestEdit() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`, form).then(() => navigate("/labtests"));
+    axios.put(`${BASE_URL}/api/labtests/${id}`, form).then(() => navigate("/labtests"));
   };
 
   return (

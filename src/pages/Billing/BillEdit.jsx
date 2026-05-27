@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function BillEdit() {
   const { id } = useParams();
@@ -16,9 +17,9 @@ function BillEdit() {
     const fetch = async () => {
       try {
         const [billRes, admissionsRes, patientsRes] = await Promise.all([
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/admissions"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
+          axios.get(`${BASE_URL}/api/bills/${id}`),
+          axios.get(`${BASE_URL}/api/admissions`),
+          axios.get(`${BASE_URL}/api/patients`),
         ]);
         const data = billRes.data;
         setBill(data);
@@ -60,7 +61,7 @@ function BillEdit() {
         status: form.status,
         items: form.items.map(i => ({ description: i.description, amount: parseFloat(i.amount || 0).toFixed(2) }))
       };
-      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`, payload);
+      await axios.put(`${BASE_URL}/api/bills/${id}`, payload);
       setAlert({ type: "success", message: "✅ Bill updated" });
       setTimeout(() => navigate("/bills"), 1000);
     } catch (err) {
@@ -80,7 +81,7 @@ function BillEdit() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="text-sm font-medium">Patient</label>
-            <select value={form.patient_id} onChange={(e)=>setForm(prev=>({...prev, patient_id: e.target.value}))} className="w-full border rounded-md p-2">
+            <select value={form.patient_id} onChange={(e) => setForm(prev => ({ ...prev, patient_id: e.target.value }))} className="w-full border rounded-md p-2">
               <option value="">-- Choose patient --</option>
               {patients.map(p => <option key={p.id} value={p.id}>{p.name}</option>)}
             </select>
@@ -88,7 +89,7 @@ function BillEdit() {
 
           <div>
             <label className="text-sm font-medium">Admission (optional)</label>
-            <select value={form.admission_id} onChange={(e)=>setForm(prev=>({...prev, admission_id: e.target.value}))} className="w-full border rounded-md p-2">
+            <select value={form.admission_id} onChange={(e) => setForm(prev => ({ ...prev, admission_id: e.target.value }))} className="w-full border rounded-md p-2">
               <option value="">-- No admission --</option>
               {admissions.map(a => <option key={a.id} value={a.id}>#{a.id} — {a.patient_name}</option>)}
             </select>
@@ -96,7 +97,7 @@ function BillEdit() {
 
           <div>
             <label className="text-sm font-medium">Status</label>
-            <select value={form.status} onChange={(e)=>setForm(prev=>({...prev, status: e.target.value}))} className="w-full border rounded-md p-2">
+            <select value={form.status} onChange={(e) => setForm(prev => ({ ...prev, status: e.target.value }))} className="w-full border rounded-md p-2">
               <option value="unpaid">Unpaid</option>
               <option value="paid">Paid</option>
               <option value="cancelled">Cancelled</option>
@@ -108,10 +109,10 @@ function BillEdit() {
             <div className="space-y-3">
               {form.items.map((it, idx) => (
                 <div key={idx} className="grid grid-cols-12 gap-2 items-center">
-                  <input type="text" value={it.description} onChange={(e)=>handleItemChange(idx, "description", e.target.value)} placeholder="Description" className="col-span-7 border rounded-md p-2" required />
-                  <input type="number" step="0.01" value={it.amount} onChange={(e)=>handleItemChange(idx, "amount", e.target.value)} placeholder="Amount" className="col-span-3 border rounded-md p-2" required />
+                  <input type="text" value={it.description} onChange={(e) => handleItemChange(idx, "description", e.target.value)} placeholder="Description" className="col-span-7 border rounded-md p-2" required />
+                  <input type="number" step="0.01" value={it.amount} onChange={(e) => handleItemChange(idx, "amount", e.target.value)} placeholder="Amount" className="col-span-3 border rounded-md p-2" required />
                   <div className="col-span-2 flex gap-2">
-                    <button type="button" onClick={()=>removeItem(idx)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">Remove</button>
+                    <button type="button" onClick={() => removeItem(idx)} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">Remove</button>
                     {idx === form.items.length - 1 && <button type="button" onClick={addItem} className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md">+ Add</button>}
                   </div>
                 </div>
@@ -125,7 +126,7 @@ function BillEdit() {
               <div className="text-2xl font-bold">Rp{calcTotal()}</div>
             </div>
             <div className="flex gap-2">
-              <button type="button" onClick={()=>navigate("/bills")} className="px-4 py-2 rounded-md border">Cancel</button>
+              <button type="button" onClick={() => navigate("/bills")} className="px-4 py-2 rounded-md border">Cancel</button>
               <button type="submit" className="px-4 py-2 bg-yellow-500 text-white rounded-md">Update Bill</button>
             </div>
           </div>

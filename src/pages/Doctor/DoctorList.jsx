@@ -141,6 +141,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination.jsx";
+import { BASE_URL } from "../../config/api.js";
 
 function DoctorList() {
   const [doctors, setDoctors] = useState([]);
@@ -153,7 +154,7 @@ function DoctorList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data || []));
+    axios.get(`${BASE_URL}/api/doctors`).then((res) => setDoctors(res.data || []));
   }, []);
 
   // filter data by search (searching in all fields)
@@ -193,7 +194,7 @@ function DoctorList() {
 
   const handleDelete = async () => {
     if (selectedId) {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete_doctor/${selectedId}`);
+      await axios.delete(`${BASE_URL}/api/delete_doctor/${selectedId}`);
       setDoctors((prev) => prev.filter((d) => d.id !== selectedId));
       closeModal();
     }
@@ -202,130 +203,130 @@ function DoctorList() {
   return (
     <div className="max-w-8xl mx-auto my-10 px-4">
       {/* <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100"> */}
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6 gap-4">
-          <h2 className="text-2xl font-bold text-gray-700">Daftar Dokter</h2>
-          <Link
-            to="/doctors/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 shadow"
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6 gap-4">
+        <h2 className="text-2xl font-bold text-gray-700">Daftar Dokter</h2>
+        <Link
+          to="/doctors/create"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 shadow"
+        >
+          + Tambah Dokter
+        </Link>
+      </div>
+
+      {/* Controls: show items on left, search on right */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <label className="text-sm text-gray-600">Show</label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1); // reset to first page
+            }}
+            className="px-2 py-1 border rounded-md text-sm"
           >
-            + Tambah Dokter
-          </Link>
+            {[5, 10, 20, 50].map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-600">items</span>
         </div>
 
-        {/* Controls: show items on left, search on right */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
-          <div className="flex items-center gap-3">
-            <label className="text-sm text-gray-600">Show</label>
-            <select
-              value={itemsPerPage}
-              onChange={(e) => {
-                setItemsPerPage(Number(e.target.value));
-                setCurrentPage(1); // reset to first page
-              }}
-              className="px-2 py-1 border rounded-md text-sm"
-            >
-              {[5, 10, 20, 50].map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-            <span className="text-sm text-gray-600">items</span>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
+          />
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto bg-white">
+        <table className="min-w-full text-sm text-center">
+          <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
+            <tr>
+              <th className="py-3 px-4 text-white">ID</th>
+              <th className="py-3 px-4 text-white">Nama</th>
+              <th className="py-3 px-4 text-white">Email</th>
+              <th className="py-3 px-4 text-white">Phone</th>
+              <th className="py-3 px-4 text-white">Spesialisasi</th>
+              <th className="py-3 px-4 text-white">Departemen</th>
+              <th className="py-3 px-4 text-white">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginated.map((d) => (
+              <tr key={d.id} className="border-b hover:bg-gray-50 transition-all">
+                <td className="py-3 px-4">{d.id}</td>
+                <td className="py-3 px-4 font-medium text-gray-800">{d.name}</td>
+                <td className="py-3 px-4 text-gray-600">{d.email}</td>
+                <td className="py-3 px-4">{d.phone}</td>
+                <td className="py-3 px-4">{d.specialization}</td>
+                <td className="py-3 px-4">{d.department_name || "-"}</td>
+                <td className="py-3 px-4">
+                  <div className="flex justify-center gap-2">
+                    <Link
+                      to={`/doctors/${d.id}`}
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      to={`/doctors/edit/${d.id}`}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => openModal(d.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+            {paginated.length === 0 && (
+              <tr>
+                <td colSpan="7" className="py-6 text-gray-400 italic text-center">
+                  Tidak ada data dokter.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Bottom: showing & pagination component */}
+      <div className="p-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-sm text-gray-600">
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1} to ${Math.min(totalItems, currentPage * itemsPerPage)} of ${totalItems} entries`}
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
+          <div className="w-full sm:w-auto">
+            <Pagination
+              totalItems={totalItems}
+              currentPage={currentPage}
+              onPageChange={(p) => setCurrentPage(p)}
+              itemsPerPage={itemsPerPage}
+              onItemsPerPageChange={(n) => {
+                setItemsPerPage(n);
                 setCurrentPage(1);
               }}
-              className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
             />
           </div>
         </div>
-
-        {/* Table */}
-        <div className="overflow-x-auto bg-white">
-          <table className="min-w-full text-sm text-center">
-            <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
-              <tr>
-                <th className="py-3 px-4 text-white">ID</th>
-                <th className="py-3 px-4 text-white">Nama</th>
-                <th className="py-3 px-4 text-white">Email</th>
-                <th className="py-3 px-4 text-white">Phone</th>
-                <th className="py-3 px-4 text-white">Spesialisasi</th>
-                <th className="py-3 px-4 text-white">Departemen</th>
-                <th className="py-3 px-4 text-white">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginated.map((d) => (
-                <tr key={d.id} className="border-b hover:bg-gray-50 transition-all">
-                  <td className="py-3 px-4">{d.id}</td>
-                  <td className="py-3 px-4 font-medium text-gray-800">{d.name}</td>
-                  <td className="py-3 px-4 text-gray-600">{d.email}</td>
-                  <td className="py-3 px-4">{d.phone}</td>
-                  <td className="py-3 px-4">{d.specialization}</td>
-                  <td className="py-3 px-4">{d.department_name || "-"}</td>
-                  <td className="py-3 px-4">
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        to={`/doctors/${d.id}`}
-                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        View
-                      </Link>
-                      <Link
-                        to={`/doctors/edit/${d.id}`}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => openModal(d.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {paginated.length === 0 && (
-                <tr>
-                  <td colSpan="7" className="py-6 text-gray-400 italic text-center">
-                    Tidak ada data dokter.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Bottom: showing & pagination component */}
-        <div className="p-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-sm text-gray-600">
-              {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1} to ${Math.min(totalItems, currentPage * itemsPerPage)} of ${totalItems} entries`}
-            </div>
-
-            <div className="w-full sm:w-auto">
-              <Pagination
-                totalItems={totalItems}
-                currentPage={currentPage}
-                onPageChange={(p) => setCurrentPage(p)}
-                itemsPerPage={itemsPerPage}
-                onItemsPerPageChange={(n) => {
-                  setItemsPerPage(n);
-                  setCurrentPage(1);
-                }}
-              />
-            </div>
-          </div>
         {/* </div> */}
       </div>
 

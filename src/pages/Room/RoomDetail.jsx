@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function RoomDetail() {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_room/${id}`).then(res => setRoom(res.data[0]));
+    axios.get(`${BASE_URL}/api/get_room/${id}`).then(res => setRoom(res.data[0]));
   }, [id]);
 
   if (!room) return (

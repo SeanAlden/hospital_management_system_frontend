@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function MedicalRecordDetail() {
   const { id } = useParams();
   const [record, setRecord] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_medical_record/${id}`).then(res => setRecord(res.data[0]));
+    axios.get(`${BASE_URL}/api/get_medical_record/${id}`).then(res => setRecord(res.data[0]));
   }, [id]);
 
   if (!record) return <div className="flex justify-center items-center min-h-screen text-gray-500">Loading...</div>;

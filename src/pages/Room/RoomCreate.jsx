@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function RoomCreate() {
   const [form, setForm] = useState({ room_number: "", type: "general", status: "available", rate_per_day: "" });
@@ -13,10 +14,10 @@ function RoomCreate() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_room", form);
+      await axios.post(`${BASE_URL}/api/add_room`, form);
       setAlert({ type: "success", message: "Room added successfully!" });
       setTimeout(() => navigate("/rooms"), 1500);
-    } catch(err) {
+    } catch (err) {
       setAlert({ type: "error", message: "Failed to add room!" });
     }
   };

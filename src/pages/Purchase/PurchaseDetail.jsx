@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function PurchaseDetail() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ export default function PurchaseDetail() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${id}`);
+        const res = await axios.get(`${BASE_URL}/api/purchases/${id}`);
         setPurchase(res.data);
       } catch (err) {
         console.error("Failed to load purchase", err);

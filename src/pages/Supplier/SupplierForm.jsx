@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function SupplierForm() {
   const [form, setForm] = useState({
@@ -18,7 +19,7 @@ export default function SupplierForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // await axios.post("http://localhost:5000/api/suppliers", form);
-    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers", form);
+    await axios.post(`${BASE_URL}/api/suppliers`, form);
     navigate("/suppliers");
   };
 

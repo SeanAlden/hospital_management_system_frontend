@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function BillDetail() {
   const { id } = useParams();
   const [bill, setBill] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/api/bills/${id}`).then((res) => {
       setBill(res.data);
     }).catch(err => console.error(err));
   }, [id]);
@@ -45,7 +46,7 @@ function BillDetail() {
             <tbody>
               {(bill.items || []).map((it, i) => (
                 <tr key={i} className="border-t">
-                  <td className="p-3">{i+1}</td>
+                  <td className="p-3">{i + 1}</td>
                   <td className="p-3">{it.description}</td>
                   <td className="p-3 text-right">Rp{parseFloat(it.amount).toFixed(2)}</td>
                 </tr>

@@ -166,6 +166,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -180,7 +181,7 @@ export default function RegisterPage() {
       return;
     }
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/register", {
+      await axios.post(`${BASE_URL}/api/auth/register`, {
         username: form.username,
         email: form.email || undefined,
         phone: form.phone || undefined,

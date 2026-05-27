@@ -151,6 +151,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../config/api";
 
 function StatCard({ icon, title, subtitle, value, bgColor }) {
   return (
@@ -189,7 +190,7 @@ export default function Dashboard() {
         if (Array.isArray(res.data)) return res.data;
         if (res.data && Array.isArray(res.data.data)) return res.data.data;
         return [];
-      } catch (err) {}
+      } catch (err) { }
     }
     return [];
   };
@@ -199,10 +200,10 @@ export default function Dashboard() {
       setLoading(true);
       const [appointmentsRes, patientsRes, doctorsRes, departmentsRes] =
         await Promise.all([
-          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/appointments", "https://hospital-management-system-backend-zic1.onrender.com/appointments"]),
-          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/patients", "https://hospital-management-system-backend-zic1.onrender.com/patients"]),
-          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/doctors", "https://hospital-management-system-backend-zic1.onrender.com/doctors"]),
-          tryFetch(["https://hospital-management-system-backend-zic1.onrender.com/api/departments", "https://hospital-management-system-backend-zic1.onrender.com/departments"]),
+          tryFetch([`${BASE_URL}/api/appointments`, `${BASE_URL}/appointments`]),
+          tryFetch([`${BASE_URL}/api/patients`, `${BASE_URL}/patients`]),
+          tryFetch([`${BASE_URL}/api/doctors`, `${BASE_URL}/doctors`]),
+          tryFetch([`${BASE_URL}/api/departments`, `${BASE_URL}/departments`]),
         ]);
 
       setCounts({

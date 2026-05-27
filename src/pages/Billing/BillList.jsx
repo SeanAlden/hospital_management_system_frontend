@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 function BillList() {
   const [bills, setBills] = useState([]);
@@ -32,12 +33,12 @@ function BillList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/bills").then((res) => setBills(res.data));
+    axios.get(`${BASE_URL}/api/bills`).then((res) => setBills(res.data));
   }, []);
 
   const deleteBill = async (id) => {
     if (window.confirm("Are you sure?")) {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/bills/${id}`);
+      await axios.delete(`${BASE_URL}/api/bills/${id}`);
       setBills(bills.filter((b) => b.id !== id));
     }
   };
@@ -150,12 +151,11 @@ function BillList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

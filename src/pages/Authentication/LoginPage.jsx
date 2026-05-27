@@ -145,6 +145,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ export default function LoginPage() {
     e.preventDefault();
     setErr(null);
     try {
-      const res = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/login", form);
+      const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
       const { token, user } = res.data;
       localStorage.setItem("auth_token", token);
       localStorage.setItem("auth_user", JSON.stringify(user));

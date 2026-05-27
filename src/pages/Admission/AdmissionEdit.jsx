@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function AdmissionEdit() {
   const { id } = useParams();
@@ -19,10 +20,10 @@ function AdmissionEdit() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`).then((res) => setForm(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/rooms").then((res) => setRooms(res.data));
+    axios.get(`${BASE_URL}/api/admissions/${id}`).then((res) => setForm(res.data));
+    axios.get(`${BASE_URL}/api/patients`).then((res) => setPatients(res.data));
+    axios.get(`${BASE_URL}/api/doctors`).then((res) => setDoctors(res.data));
+    axios.get(`${BASE_URL}/api/rooms`).then((res) => setRooms(res.data));
   }, [id]);
 
   const handleChange = (e) =>
@@ -42,7 +43,7 @@ function AdmissionEdit() {
       room_id: form.room_id || null,
       doctor_id: form.doctor_id || null,
     };
-    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`, payload);
+    await axios.put(`${BASE_URL}/api/admissions/${id}`, payload);
     navigate("/admissions");
   };
 

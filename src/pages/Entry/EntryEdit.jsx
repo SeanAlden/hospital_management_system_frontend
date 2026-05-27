@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function EntryEdit() {
   const { id } = useParams();
@@ -22,10 +23,10 @@ export default function EntryEdit() {
     const load = async () => {
       try {
         const [pRes, sRes, mRes, entryRes] = await Promise.all([
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${id}`)
+          axios.get(`${BASE_URL}/api/purchases`),
+          axios.get(`${BASE_URL}/api/medicine_stocks`),
+          axios.get(`${BASE_URL}/api/medicines`),
+          axios.get(`${BASE_URL}/api/entries/${id}`)
         ]);
         setPurchases(pRes.data || []);
         setStocks(sRes.data || []);
@@ -70,7 +71,7 @@ export default function EntryEdit() {
         quantity: parseInt(form.quantity, 10),
         entered_by: form.entered_by || null
       };
-      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${id}`, payload);
+      await axios.put(`${BASE_URL}/api/entries/${id}`, payload);
       alert("Entry updated");
       navigate("/entries");
     } catch (err) {

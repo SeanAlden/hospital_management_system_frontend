@@ -42,7 +42,7 @@
 //   const fetchPurchases = async () => {
 //     setLoading(true);
 //     try {
-//       const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases");
+//       const res = await axios.get("${BASE_URL}/api/purchases");
 //       setPurchases(res.data || []);
 //     } catch (err) {
 //       console.error("Failed to load purchases", err);
@@ -61,7 +61,7 @@
 //   const doDelete = async () => {
 //     if (!deleteId) return;
 //     try {
-//       await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${deleteId}`);
+//       await axios.delete(`${BASE_URL}/api/purchases/${deleteId}`);
 //       setPurchases((prev) => prev.filter((p) => p.id !== deleteId));
 //       setDeleteId(null);
 //     } catch (err) {
@@ -276,6 +276,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 export default function PurchaseList() {
   const [purchases, setPurchases] = useState([]);
@@ -294,7 +295,7 @@ export default function PurchaseList() {
   const fetchPurchases = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases");
+      const res = await axios.get(`${BASE_URL}/api/purchases`);
       setPurchases(res.data || []);
     } catch (err) {
       console.error("Failed to load purchases", err);
@@ -349,7 +350,7 @@ export default function PurchaseList() {
   const doDelete = async () => {
     if (!deleteId) return;
     try {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${deleteId}`);
+      await axios.delete(`${BASE_URL}/api/purchases/${deleteId}`);
       setPurchases((prev) => prev.filter((p) => p.id !== deleteId));
       setDeleteId(null);
     } catch (err) {

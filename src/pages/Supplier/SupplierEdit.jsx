@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function SupplierEdit() {
   const { id } = useParams();
@@ -8,7 +9,7 @@ export default function SupplierEdit() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`).then((res) => setForm(res.data));
+    axios.get(`${BASE_URL}/api/suppliers/${id}`).then((res) => setForm(res.data));
   }, [id]);
 
   const handleChange = (e) =>
@@ -16,7 +17,7 @@ export default function SupplierEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`, form);
+    await axios.put(`${BASE_URL}/api/suppliers/${id}`, form);
     navigate("/suppliers");
   };
 

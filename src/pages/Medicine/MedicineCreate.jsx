@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function MedicineCreate() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function MedicineCreate() {
   const [suppliers, setSuppliers] = useState([]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers").then((res) => setSuppliers(res.data));
+    axios.get(`${BASE_URL}/api/suppliers`).then((res) => setSuppliers(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -28,7 +29,7 @@ export default function MedicineCreate() {
       supplier_id: form.supplier_id === "" ? null : form.supplier_id,
     };
 
-    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/medicines", payload);
+    await axios.post(`${BASE_URL}/api/medicines`, payload);
     navigate("/medicines");
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function AdmissionCreate() {
   const navigate = useNavigate();
@@ -18,9 +19,9 @@ function AdmissionCreate() {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/rooms").then((res) => setRooms(res.data));
+    axios.get(`${BASE_URL}/api/patients`).then((res) => setPatients(res.data));
+    axios.get(`${BASE_URL}/api/doctors`).then((res) => setDoctors(res.data));
+    axios.get(`${BASE_URL}/api/rooms`).then((res) => setRooms(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -40,7 +41,7 @@ function AdmissionCreate() {
       room_id: form.room_id || null,
       doctor_id: form.doctor_id || null,
     };
-    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/admissions", payload);
+    await axios.post(`${BASE_URL}/api/admissions`, payload);
     navigate("/admissions");
   };
 

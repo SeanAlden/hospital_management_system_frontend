@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function DepartmentCreate() {
   const [form, setForm] = useState({ name: "", description: "" });
@@ -13,7 +14,7 @@ function DepartmentCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_department", form);
+      await axios.post(`${BASE_URL}/api/add_department`, form);
       setAlert({ type: "success", message: "✅ Departemen berhasil ditambahkan!" });
       setTimeout(() => navigate("/departments"), 2000);
     } catch (error) {

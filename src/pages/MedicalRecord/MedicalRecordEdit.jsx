@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function MedicalRecordEdit() {
   const { id } = useParams();
@@ -23,9 +24,9 @@ function MedicalRecordEdit() {
     const fetchData = async () => {
       try {
         const [recordRes, patientsRes, doctorsRes] = await Promise.all([
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_medical_record/${id}`),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
+          axios.get(`${BASE_URL}/api/get_medical_record/${id}`),
+          axios.get(`${BASE_URL}/api/patients`),
+          axios.get(`${BASE_URL}/api/doctors`),
         ]);
         const data = recordRes.data[0];
         setForm({
@@ -34,12 +35,12 @@ function MedicalRecordEdit() {
           diagnosis: data.diagnosis,
           treatment: data.treatment,
           prescription: data.prescription,
-          record_date: data.record_date.slice(0,16),
+          record_date: data.record_date.slice(0, 16),
         });
         setPatients(patientsRes.data);
         setDoctors(doctorsRes.data);
         setLoading(false);
-      } catch(err) { console.error(err); }
+      } catch (err) { console.error(err); }
     };
     fetchData();
   }, [id]);
@@ -49,10 +50,10 @@ function MedicalRecordEdit() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_medical_record/${id}`, form);
+      await axios.post(`${BASE_URL}/api/edit_medical_record/${id}`, form);
       setAlert({ type: "success", message: "Medical record updated!" });
       setTimeout(() => navigate("/medical_records"), 1500);
-    } catch(err) {
+    } catch (err) {
       setAlert({ type: "error", message: "Failed to update medical record!" });
     }
   };

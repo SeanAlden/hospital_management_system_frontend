@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function RoomEdit() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ function RoomEdit() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_room/${id}`).then(res => setForm(res.data[0]));
+    axios.get(`${BASE_URL}/api/get_room/${id}`).then(res => setForm(res.data[0]));
   }, [id]);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,10 +19,10 @@ function RoomEdit() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_room/${id}`, form);
+      await axios.post(`${BASE_URL}/api/edit_room/${id}`, form);
       setAlert({ type: "success", message: "Room updated successfully!" });
       setTimeout(() => navigate("/rooms"), 1500);
-    } catch(err) {
+    } catch (err) {
       setAlert({ type: "error", message: "Failed to update room!" });
     }
   };

@@ -1021,6 +1021,7 @@ import React, { useState, useEffect } from "react";
 import { FaBars, FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../config/api";
 
 function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -1088,7 +1089,7 @@ function Layout({ children }) {
       }
 
       // Panggil endpoint memakai Authorization header
-      const resp = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/auth/me", {
+      const resp = await axios.get(`${BASE_URL}/api/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -1115,7 +1116,7 @@ function Layout({ children }) {
 
   const logout = async () => {
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/auth/logout");
+      await axios.post(`${BASE_URL}/api/auth/logout`);
       localStorage.removeItem("auth_token");
       delete axios.defaults.headers.common["Authorization"];
       navigate("/login");
@@ -1168,7 +1169,7 @@ function Layout({ children }) {
     e.preventDefault();
     setProfileLoading(true);
     try {
-      const resp = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/users/profile", profileForm);
+      const resp = await axios.post(`${BASE_URL}/api/users/profile`, profileForm);
       // optimistic: update local user
       setUser((u) => ({
         ...u,
@@ -1235,7 +1236,7 @@ function Layout({ children }) {
         currentPassword: passwordForm.currentPassword,
         newPassword: passwordForm.newPassword,
       };
-      const resp = await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/users/password", payload);
+      const resp = await axios.post(`${BASE_URL}/api/users/password`, payload);
       setShowPasswordModal(false);
       alert(resp.data?.message || "Password updated");
     } catch (err) {
@@ -1260,12 +1261,10 @@ function Layout({ children }) {
       {/* ======== SIDEBAR ======== */}
       <aside
         className={`flex flex-col bg-blue-800 text-white z-40 transform transition-all duration-300
-          ${
-            isMobile
-              ? `fixed top-0 left-0 h-full ${
-                  isOpen ? "translate-x-0" : "-translate-x-full"
-                } w-64`
-              : `${isOpen ? "w-64" : "w-20"}`
+          ${isMobile
+            ? `fixed top-0 left-0 h-full ${isOpen ? "translate-x-0" : "-translate-x-full"
+            } w-64`
+            : `${isOpen ? "w-64" : "w-20"}`
           }`}
       >
         {/* HEADER */}

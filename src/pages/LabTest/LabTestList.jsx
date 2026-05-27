@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 function LabTestList() {
   const [labTests, setLabTests] = useState([]);
@@ -32,7 +33,7 @@ function LabTestList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/labtests").then((res) => setLabTests(res.data));
+    axios.get(`${BASE_URL}/api/labtests`).then((res) => setLabTests(res.data));
   }, []);
 
   useEffect(() => {
@@ -124,7 +125,7 @@ function LabTestList() {
                 <button
                   onClick={() => {
                     if (window.confirm("Are you sure?")) {
-                      axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${t.id}`).then(() => {
+                      axios.delete(`${BASE_URL}/api/labtests/${t.id}`).then(() => {
                         setLabTests((prev) =>
                           prev.filter((x) => x.id !== t.id)
                         );
@@ -144,12 +145,11 @@ function LabTestList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

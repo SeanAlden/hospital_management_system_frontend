@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function LabTestCreate() {
   const [patients, setPatients] = useState([]);
@@ -15,13 +16,13 @@ function LabTestCreate() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => setPatients(res.data));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors").then((res) => setDoctors(res.data));
+    axios.get(`${BASE_URL}/api/patients`).then((res) => setPatients(res.data));
+    axios.get(`${BASE_URL}/api/doctors`).then((res) => setDoctors(res.data));
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/labtests", form).then(() => navigate("/labtests"));
+    axios.post(`${BASE_URL}/api/labtests`, form).then(() => navigate("/labtests"));
   };
 
   return (

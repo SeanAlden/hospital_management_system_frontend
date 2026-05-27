@@ -56,13 +56,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function PatientDetail() {
   const { id } = useParams();
   const [patient, setPatient] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_patient/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/api/get_patient/${id}`).then((res) => {
       setPatient(res.data[0]);
     });
   }, [id]);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function AppointmentEdit() {
   const { id } = useParams();
@@ -25,9 +26,9 @@ function AppointmentEdit() {
     const fetchData = async () => {
       try {
         const [appointmentRes, patientsRes, doctorsRes] = await Promise.all([
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_appointment/${id}`),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
+          axios.get(`${BASE_URL}/api/get_appointment/${id}`),
+          axios.get(`${BASE_URL}/api/patients`),
+          axios.get(`${BASE_URL}/api/doctors`),
         ]);
 
         const data = appointmentRes.data[0];
@@ -55,7 +56,7 @@ function AppointmentEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_appointment/${id}`, form);
+      await axios.post(`${BASE_URL}/api/edit_appointment/${id}`, form);
       setAlert({ type: "success", message: "Appointment updated successfully!" });
       setTimeout(() => navigate("/appointments"), 1500);
     } catch (err) {

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function AppointmentDetail() {
   const { id } = useParams();
   const [appointment, setAppointment] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_appointment/${id}`).then((res) => setAppointment(res.data[0]));
+    axios.get(`${BASE_URL}/api/get_appointment/${id}`).then((res) => setAppointment(res.data[0]));
   }, [id]);
 
   if (!appointment)

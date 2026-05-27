@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function ExitCreate() {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ export default function ExitCreate() {
     const load = async () => {
       // we'll get medicine_stocks and medicines to show label
       const [stocksRes, medsRes] = await Promise.all([
-        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
-        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
+        axios.get(`${BASE_URL}/api/medicine_stocks`),
+        axios.get(`${BASE_URL}/api/medicines`),
       ]);
       // Build quick map of medicine names
       const meds = (medsRes.data || []).reduce((acc, m) => {
@@ -63,7 +64,7 @@ export default function ExitCreate() {
       reason: form.reason || null,
     };
 
-    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/exits", payload);
+    await axios.post(`${BASE_URL}/api/exits`, payload);
     navigate("/exit-stocks");
   };
 

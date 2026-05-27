@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 function AdmissionList() {
   const [admissions, setAdmissions] = useState([]);
@@ -32,12 +33,12 @@ function AdmissionList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/admissions").then((res) => setAdmissions(res.data));
+    axios.get(`${BASE_URL}/api/admissions`).then((res) => setAdmissions(res.data));
   }, []);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure to delete this admission?")) {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`);
+      await axios.delete(`${BASE_URL}/api/admissions/${id}`);
       setAdmissions(admissions.filter((a) => a.id !== id));
     }
   };
@@ -143,12 +144,11 @@ function AdmissionList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

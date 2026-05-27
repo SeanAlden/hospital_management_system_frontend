@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function LabTestDetail() {
   const { id } = useParams();
   const [labTest, setLabTest] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/labtests/${id}`).then((res) => setLabTest(res.data));
+    axios.get(`${BASE_URL}/api/labtests/${id}`).then((res) => setLabTest(res.data));
   }, [id]);
 
   if (!labTest) return <p className="p-6">Loading...</p>;

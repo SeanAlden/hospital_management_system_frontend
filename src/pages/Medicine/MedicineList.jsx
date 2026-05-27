@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 export default function MedicineList() {
   const [medicines, setMedicines] = useState([]);
@@ -36,8 +37,8 @@ export default function MedicineList() {
     const load = async () => {
       try {
         const [medRes, stockRes] = await Promise.all([
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
+          axios.get(`${BASE_URL}/api/medicines`),
+          axios.get(`${BASE_URL}/api/medicine_stocks`),
         ]);
         setMedicines(medRes.data || []);
         setStocks(stockRes.data || []);
@@ -50,7 +51,7 @@ export default function MedicineList() {
 
   const deleteMedicine = async (id) => {
     if (!window.confirm("Delete this medicine?")) return;
-    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/medicines/${id}`);
+    await axios.delete(`${BASE_URL}/api/medicines/${id}`);
     setMedicines(medicines.filter((m) => m.id !== id));
   };
 

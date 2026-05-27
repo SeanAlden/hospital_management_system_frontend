@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 export default function ExitList() {
   const [exits, setExits] = useState([]);
@@ -41,13 +42,13 @@ export default function ExitList() {
   }, [filtered, currentPage, itemsPerPage]);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/exits").then((res) => setExits(res.data));
+    axios.get(`${BASE_URL}/api/exits`).then((res) => setExits(res.data));
   }, []);
 
   const handleDelete = async (id) => {
     // eslint-disable-next-line no-restricted-globals
     if (!confirm("Delete this exit record and restore stock?")) return;
-    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`);
+    await axios.delete(`${BASE_URL}/api/exits/${id}`);
     setExits(exits.filter((x) => x.id !== id));
   };
 
@@ -166,12 +167,11 @@ export default function ExitList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

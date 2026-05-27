@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function StaffCreate() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function StaffCreate() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data)).catch(() => setDepartments([]));
+    axios.get(`${BASE_URL}/api/departments`).then((res) => setDepartments(res.data)).catch(() => setDepartments([]));
   }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,7 +19,7 @@ function StaffCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/staff", form);
+      await axios.post(`${BASE_URL}/api/staff`, form);
       setAlert({ type: "success", message: "Staff created!" });
       setTimeout(() => navigate("/staff"), 900);
     } catch (err) {

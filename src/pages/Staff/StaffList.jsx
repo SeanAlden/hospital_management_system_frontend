@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 function StaffList() {
   const [staffs, setStaffs] = useState([]);
@@ -39,7 +40,7 @@ function StaffList() {
 
   const fetchData = () => {
     axios
-      .get("https://hospital-management-system-backend-zic1.onrender.com/api/staff")
+      .get(`${BASE_URL}/api/staff`)
       .then((res) => setStaffs(res.data))
       .catch(() => setStaffs([]));
   };
@@ -56,7 +57,7 @@ function StaffList() {
   const handleDelete = async () => {
     if (!selectedId) return;
     try {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/staff/${selectedId}`);
+      await axios.delete(`${BASE_URL}/api/staff/${selectedId}`);
       setStaffs(staffs.filter((s) => s.id !== selectedId));
       closeModal();
     } catch (err) {
@@ -73,137 +74,136 @@ function StaffList() {
   return (
     <div className="max-w-8xl mx-auto my-1 px-4">
       {/* <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100"> */}
-        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4 sm:mb-0">
-            Staff
-          </h2>
-          <Link
-            to="/staff/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all"
+      <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6">
+        <h2 className="text-2xl font-bold text-gray-700 mb-4 sm:mb-0">
+          Staff
+        </h2>
+        <Link
+          to="/staff/create"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all"
+        >
+          + Add Staff
+        </Link>
+      </div>
+
+      {/* Controls: show items on left, search on right */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <label className="text-sm text-gray-600">Show</label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1); // reset to first page
+            }}
+            className="px-2 py-1 border rounded-md text-sm"
           >
-            + Add Staff
-          </Link>
+            {[5, 10, 20, 50].map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-600">items</span>
         </div>
 
-        {/* Controls: show items on left, search on right */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
-          <div className="flex items-center gap-3">
-            <label className="text-sm text-gray-600">Show</label>
-            <select
-              value={itemsPerPage}
-              onChange={(e) => {
-                setItemsPerPage(Number(e.target.value));
-                setCurrentPage(1); // reset to first page
-              }}
-              className="px-2 py-1 border rounded-md text-sm"
-            >
-              {[5, 10, 20, 50].map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-            <span className="text-sm text-gray-600">items</span>
-          </div>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
-            />
-          </div>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
+          />
         </div>
+      </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-left bg-white">
-            <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
-              <tr>
-                <th className="py-3 px-4 text-white">ID</th>
-                <th className="py-3 px-4 text-white">Name</th>
-                <th className="py-3 px-4 text-white">Role</th>
-                <th className="py-3 px-4 text-white">Department</th>
-                <th className="py-3 px-4 text-white">Phone</th>
-                <th className="py-3 px-4 text-white">Email</th>
-                <th className="py-3 px-4 text-white">Action</th>
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-left bg-white">
+          <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
+            <tr>
+              <th className="py-3 px-4 text-white">ID</th>
+              <th className="py-3 px-4 text-white">Name</th>
+              <th className="py-3 px-4 text-white">Role</th>
+              <th className="py-3 px-4 text-white">Department</th>
+              <th className="py-3 px-4 text-white">Phone</th>
+              <th className="py-3 px-4 text-white">Email</th>
+              <th className="py-3 px-4 text-white">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {staffs.map((s) => (
+              <tr key={s.id} className="border-b hover:bg-gray-50">
+                <td className="py-3 px-4">{s.id}</td>
+                <td className="py-3 px-4 font-medium">{s.name}</td>
+                <td className="py-3 px-4">{s.role || "-"}</td>
+                <td className="py-3 px-4">{s.department_name || "-"}</td>
+                <td className="py-3 px-4">{s.phone || "-"}</td>
+                <td className="py-3 px-4">{s.email || "-"}</td>
+                <td className="py-3 px-4">
+                  <div className="flex gap-2">
+                    <Link
+                      to={`/staff/${s.id}`}
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      to={`/staff/edit/${s.id}`}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => openModal(s.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {staffs.map((s) => (
-                <tr key={s.id} className="border-b hover:bg-gray-50">
-                  <td className="py-3 px-4">{s.id}</td>
-                  <td className="py-3 px-4 font-medium">{s.name}</td>
-                  <td className="py-3 px-4">{s.role || "-"}</td>
-                  <td className="py-3 px-4">{s.department_name || "-"}</td>
-                  <td className="py-3 px-4">{s.phone || "-"}</td>
-                  <td className="py-3 px-4">{s.email || "-"}</td>
-                  <td className="py-3 px-4">
-                    <div className="flex gap-2">
-                      <Link
-                        to={`/staff/${s.id}`}
-                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
-                      >
-                        View
-                      </Link>
-                      <Link
-                        to={`/staff/edit/${s.id}`}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => openModal(s.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {staffs.length === 0 && (
-                <tr>
-                  <td
-                    colSpan="7"
-                    className="py-6 text-gray-400 italic text-center"
-                  >
-                    No staff found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        {/* Bottom: showing & pagination component */}
-        <div className="p-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-sm text-gray-600">
-              {`Showing ${
-                totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+            ))}
+            {staffs.length === 0 && (
+              <tr>
+                <td
+                  colSpan="7"
+                  className="py-6 text-gray-400 italic text-center"
+                >
+                  No staff found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      {/* Bottom: showing & pagination component */}
+      <div className="p-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-sm text-gray-600">
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
               } to ${Math.min(
                 totalItems,
                 currentPage * itemsPerPage
               )} of ${totalItems} entries`}
-            </div>
-
-            <div className="w-full sm:w-auto">
-              <Pagination
-                totalItems={totalItems}
-                currentPage={currentPage}
-                onPageChange={(p) => setCurrentPage(p)}
-                itemsPerPage={itemsPerPage}
-                onItemsPerPageChange={(n) => {
-                  setItemsPerPage(n);
-                  setCurrentPage(1);
-                }}
-              />
-            </div>
           </div>
+
+          <div className="w-full sm:w-auto">
+            <Pagination
+              totalItems={totalItems}
+              currentPage={currentPage}
+              onPageChange={(p) => setCurrentPage(p)}
+              itemsPerPage={itemsPerPage}
+              onItemsPerPageChange={(n) => {
+                setItemsPerPage(n);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
+        </div>
         {/* </div> */}
       </div>
 

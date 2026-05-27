@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function MedicalRecordCreate() {
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ function MedicalRecordCreate() {
     const fetchData = async () => {
       try {
         const [patientsRes, doctorsRes] = await Promise.all([
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/doctors"),
+          axios.get(`${BASE_URL}/api/patients`),
+          axios.get(`${BASE_URL}/api/doctors`),
         ]);
         setPatients(patientsRes.data);
         setDoctors(doctorsRes.data);
@@ -39,7 +40,7 @@ function MedicalRecordCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_medical_record", form);
+      await axios.post(`${BASE_URL}/api/add_medical_record`, form);
       setAlert({ type: "success", message: "Medical record added!" });
       setTimeout(() => navigate("/medical_records"), 1500);
     } catch (err) {

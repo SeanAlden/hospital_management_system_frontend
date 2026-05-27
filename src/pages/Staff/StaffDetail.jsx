@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function StaffDetail() {
   const { id } = useParams();
   const [staff, setStaff] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/staff/${id}`).then((res) => setStaff(res.data)).catch(() => {});
+    axios.get(`${BASE_URL}/api/staff/${id}`).then((res) => setStaff(res.data)).catch(() => { });
   }, [id]);
 
   if (!staff) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;

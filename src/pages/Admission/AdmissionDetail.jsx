@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function AdmissionDetail() {
   const { id } = useParams();
   const [admission, setAdmission] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/admissions/${id}`).then((res) => setAdmission(res.data));
+    axios.get(`${BASE_URL}/api/admissions/${id}`).then((res) => setAdmission(res.data));
   }, [id]);
 
   if (!admission) return <div className="p-6">Loading...</div>;

@@ -430,6 +430,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 function PatientList() {
   const [patients, setPatients] = useState([]);
@@ -442,7 +443,7 @@ function PatientList() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/patients").then((res) => {
+    axios.get(`${BASE_URL}/api/patients`).then((res) => {
       setPatients(res.data || []);
     });
   }, []);
@@ -481,7 +482,7 @@ function PatientList() {
 
   const handleDelete = async () => {
     if (selectedId) {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/delete/${selectedId}`);
+      await axios.delete(`${BASE_URL}/api/delete/${selectedId}`);
       setPatients((prev) => prev.filter((p) => p.id !== selectedId));
       closeModal();
     }
@@ -490,128 +491,128 @@ function PatientList() {
   return (
     <div className="max-w-8xl mx-auto my-10 px-4">
       {/* <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100"> */}
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6 gap-4">
-          <h2 className="text-2xl font-bold text-gray-700">Daftar Pasien</h2>
-          <Link
-            to="/create"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 shadow"
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 p-6 gap-4">
+        <h2 className="text-2xl font-bold text-gray-700">Daftar Pasien</h2>
+        <Link
+          to="/create"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 shadow"
+        >
+          + Tambah Pasien
+        </Link>
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <label className="text-sm text-gray-600">Show</label>
+          <select
+            value={itemsPerPage}
+            onChange={(e) => {
+              setItemsPerPage(Number(e.target.value));
+              setCurrentPage(1);
+            }}
+            className="px-2 py-1 border rounded-md text-sm"
           >
-            + Tambah Pasien
-          </Link>
+            {[5, 10, 20, 50].map((opt) => (
+              <option key={opt} value={opt}>
+                {opt}
+              </option>
+            ))}
+          </select>
+          <span className="text-sm text-gray-600">items</span>
         </div>
 
-        {/* Controls */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 border-b border-gray-100">
-          <div className="flex items-center gap-3">
-            <label className="text-sm text-gray-600">Show</label>
-            <select
-              value={itemsPerPage}
-              onChange={(e) => {
-                setItemsPerPage(Number(e.target.value));
-                setCurrentPage(1);
-              }}
-              className="px-2 py-1 border rounded-md text-sm"
-            >
-              {[5, 10, 20, 50].map((opt) => (
-                <option key={opt} value={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-            <span className="text-sm text-gray-600">items</span>
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <input
+            type="text"
+            placeholder="Search..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
+          />
+        </div>
+      </div>
+
+      {/* Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-center bg-white">
+          <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
+            <tr>
+              <th className="py-3 px-4 text-white">ID</th>
+              <th className="py-3 px-4 text-white">Nama</th>
+              <th className="py-3 px-4 text-white">Email</th>
+              <th className="py-3 px-4 text-white">Usia</th>
+              <th className="py-3 px-4 text-white">Gender</th>
+              <th className="py-3 px-4 text-white">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {paginated.map((p) => (
+              <tr key={p.id} className="border-b hover:bg-gray-50 transition-all">
+                <td className="py-3 px-4">{p.id}</td>
+                <td className="py-3 px-4 font-medium text-gray-800">{p.name}</td>
+                <td className="py-3 px-4 text-gray-600">{p.email}</td>
+                <td className="py-3 px-4">{p.age}</td>
+                <td className="py-3 px-4">{p.gender}</td>
+                <td className="py-3 px-4">
+                  <div className="flex justify-center gap-2">
+                    <Link
+                      to={`/read/${p.id}`}
+                      className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      View
+                    </Link>
+                    <Link
+                      to={`/edit/${p.id}`}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => openModal(p.id)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+            {paginated.length === 0 && (
+              <tr>
+                <td colSpan="6" className="py-6 text-gray-400 italic text-center">
+                  Tidak ada data pasien.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Bottom */}
+      <div className="p-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-sm text-gray-600">
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1} to ${Math.min(totalItems, currentPage * itemsPerPage)} of ${totalItems} entries`}
           </div>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
+          <div className="w-full sm:w-auto">
+            <Pagination
+              totalItems={totalItems}
+              currentPage={currentPage}
+              onPageChange={(p) => setCurrentPage(p)}
+              itemsPerPage={itemsPerPage}
+              onItemsPerPageChange={(n) => {
+                setItemsPerPage(n);
                 setCurrentPage(1);
               }}
-              className="w-full sm:w-64 px-3 py-2 border rounded-md text-sm"
             />
           </div>
         </div>
-
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm text-center bg-white">
-            <thead className="bg-blue-500 text-gray-600 uppercase text-xs font-semibold">
-              <tr>
-                <th className="py-3 px-4 text-white">ID</th>
-                <th className="py-3 px-4 text-white">Nama</th>
-                <th className="py-3 px-4 text-white">Email</th>
-                <th className="py-3 px-4 text-white">Usia</th>
-                <th className="py-3 px-4 text-white">Gender</th>
-                <th className="py-3 px-4 text-white">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginated.map((p) => (
-                <tr key={p.id} className="border-b hover:bg-gray-50 transition-all">
-                  <td className="py-3 px-4">{p.id}</td>
-                  <td className="py-3 px-4 font-medium text-gray-800">{p.name}</td>
-                  <td className="py-3 px-4 text-gray-600">{p.email}</td>
-                  <td className="py-3 px-4">{p.age}</td>
-                  <td className="py-3 px-4">{p.gender}</td>
-                  <td className="py-3 px-4">
-                    <div className="flex justify-center gap-2">
-                      <Link
-                        to={`/read/${p.id}`}
-                        className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        View
-                      </Link>
-                      <Link
-                        to={`/edit/${p.id}`}
-                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={() => openModal(p.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md text-xs font-medium transition"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-              {paginated.length === 0 && (
-                <tr>
-                  <td colSpan="6" className="py-6 text-gray-400 italic text-center">
-                    Tidak ada data pasien.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Bottom */}
-        <div className="p-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="text-sm text-gray-600">
-              {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1} to ${Math.min(totalItems, currentPage * itemsPerPage)} of ${totalItems} entries`}
-            </div>
-
-            <div className="w-full sm:w-auto">
-              <Pagination
-                totalItems={totalItems}
-                currentPage={currentPage}
-                onPageChange={(p) => setCurrentPage(p)}
-                itemsPerPage={itemsPerPage}
-                onItemsPerPageChange={(n) => {
-                  setItemsPerPage(n);
-                  setCurrentPage(1);
-                }}
-              />
-            </div>
-          </div>
         {/* </div> */}
       </div>
 

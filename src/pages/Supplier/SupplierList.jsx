@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 export default function SupplierList() {
   const [suppliers, setSuppliers] = useState([]);
@@ -33,7 +34,7 @@ export default function SupplierList() {
 
   const fetchSuppliers = async () => {
     try {
-      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers");
+      const res = await axios.get(`${BASE_URL}/api/suppliers`);
       setSuppliers(res.data);
     } catch (err) {
       console.error(err);
@@ -44,7 +45,7 @@ export default function SupplierList() {
 
   const deleteSupplier = async (id) => {
     if (!window.confirm("Yakin ingin menghapus supplier ini?")) return;
-    await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/suppliers/${id}`);
+    await axios.delete(`${BASE_URL}/api/suppliers/${id}`);
     fetchSuppliers();
   };
 
@@ -143,12 +144,11 @@ export default function SupplierList() {
       <div className="p-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-sm text-gray-600">
-            {`Showing ${
-              totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
-            } to ${Math.min(
-              totalItems,
-              currentPage * itemsPerPage
-            )} of ${totalItems} entries`}
+            {`Showing ${totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1
+              } to ${Math.min(
+                totalItems,
+                currentPage * itemsPerPage
+              )} of ${totalItems} entries`}
           </div>
 
           <div className="w-full sm:w-auto">

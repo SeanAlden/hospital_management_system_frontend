@@ -159,6 +159,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function EntryCreate() {
   const navigate = useNavigate();
@@ -173,8 +174,8 @@ export default function EntryCreate() {
   useEffect(() => {
     const load = async () => {
       const [medRes, purRes] = await Promise.all([
-        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
-        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/purchases"),
+        axios.get(`${BASE_URL}/api/medicines`),
+        axios.get(`${BASE_URL}/api/purchases`),
       ]);
       setMedicines(medRes.data || []);
       setPurchases(purRes.data || []);
@@ -209,7 +210,7 @@ export default function EntryCreate() {
 
     console.log("ENTRY payload:", payload);
 
-    await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/entries", payload);
+    await axios.post(`${BASE_URL}/api/entries`, payload);
     navigate("/entry-stocks");
   };
 

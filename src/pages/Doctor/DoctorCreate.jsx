@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function DoctorCreate() {
   const [form, setForm] = useState({
@@ -17,7 +18,7 @@ function DoctorCreate() {
 
   useEffect(() => {
     // Ambil daftar departemen untuk select dropdown
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data));
+    axios.get(`${BASE_URL}/api/departments`).then((res) => setDepartments(res.data));
   }, []);
 
   const handleChange = (e) =>
@@ -26,7 +27,7 @@ function DoctorCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_doctor", form);
+      await axios.post(`${BASE_URL}/api/add_doctor`, form);
       setAlert({ type: "success", message: "✅ Dokter berhasil ditambahkan!" });
       setTimeout(() => navigate("/doctors"), 2000);
     } catch (error) {

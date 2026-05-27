@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function ExitEdit() {
   const { id } = useParams();
@@ -12,8 +13,8 @@ export default function ExitEdit() {
   useEffect(() => {
     const load = async () => {
       const [stockRes, exitRes] = await Promise.all([
-        axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicine_stocks"),
-        axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`)
+        axios.get(`${BASE_URL}/api/medicine_stocks`),
+        axios.get(`${BASE_URL}/api/exits/${id}`)
       ]);
       setStocks(stockRes.data || []);
       setForm({
@@ -39,7 +40,7 @@ export default function ExitEdit() {
     if (!form.medicine_stock_id) return alert("Select batch");
     if (!form.quantity || Number(form.quantity) <= 0) return alert("Quantity > 0");
     // Note: server will validate availability
-    await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`, { ...form, quantity: Number(form.quantity) });
+    await axios.put(`${BASE_URL}/api/exits/${id}`, { ...form, quantity: Number(form.quantity) });
     navigate("/exit-stocks");
   };
 

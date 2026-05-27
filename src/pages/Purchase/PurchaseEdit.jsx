@@ -164,6 +164,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function PurchaseEdit() {
   const navigate = useNavigate();
@@ -186,9 +187,9 @@ export default function PurchaseEdit() {
     const fetchData = async () => {
       try {
         const [medRes, supRes, purchaseRes] = await Promise.all([
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/medicines"),
-          axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/suppliers"),
-          axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${id}`),
+          axios.get(`${BASE_URL}/api/medicines`),
+          axios.get(`${BASE_URL}/api/suppliers`),
+          axios.get(`${BASE_URL}/api/purchases/${id}`),
         ]);
         setMedicines(medRes.data);
         setSuppliers(supRes.data);
@@ -234,7 +235,7 @@ export default function PurchaseEdit() {
     }
 
     try {
-      await axios.put(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${id}`, {
+      await axios.put(`${BASE_URL}/api/purchases/${id}`, {
         medicine_id: form.medicine_id,
         supplier_id: form.supplier_id || null,
         quantity: parseInt(form.quantity, 10),
@@ -255,7 +256,7 @@ export default function PurchaseEdit() {
     if (!window.confirm("Are you sure you want to delete this purchase?"))
       return;
     try {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/purchases/${id}`);
+      await axios.delete(`${BASE_URL}/api/purchases/${id}`);
       alert("Purchase deleted successfully.");
       navigate("/purchases");
     } catch (err) {

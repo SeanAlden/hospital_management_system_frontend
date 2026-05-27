@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function PatientCreate() {
   const [form, setForm] = useState({ name: "", email: "", age: "", gender: "" });
@@ -14,7 +15,7 @@ function PatientCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://hospital-management-system-backend-zic1.onrender.com/api/add_user", form);
+      await axios.post(`${BASE_URL}/api/add_user`, form);
       setAlert({ type: "success", message: "✅ Data pasien berhasil disimpan!" });
       setTimeout(() => navigate("/patients"), 3000);
     } catch (error) {

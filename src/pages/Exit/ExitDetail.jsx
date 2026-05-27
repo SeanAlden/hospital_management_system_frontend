@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 export default function ExitDetail() {
   const { id } = useParams();
   const [item, setItem] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/exits/${id}`).then(res => setItem(res.data));
+    axios.get(`${BASE_URL}/api/exits/${id}`).then(res => setItem(res.data));
   }, [id]);
 
   if (!item) return <div className="p-6">Loading...</div>;

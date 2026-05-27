@@ -4,6 +4,7 @@ import axios from "axios";
 // import { Link, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Pagination from "../../components/Pagination";
+import { BASE_URL } from "../../config/api";
 
 export default function EntryList() {
   const [entries, setEntries] = useState([]);
@@ -52,7 +53,7 @@ export default function EntryList() {
   const fetchEntries = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/entries");
+      const res = await axios.get(`${BASE_URL}/api/entries`);
       setEntries(res.data || []);
     } catch (err) {
       console.error(err);
@@ -66,7 +67,7 @@ export default function EntryList() {
   const cancelDelete = () => setDeleteId(null);
   const doDelete = async () => {
     try {
-      await axios.delete(`https://hospital-management-system-backend-zic1.onrender.com/api/entries/${deleteId}`);
+      await axios.delete(`${BASE_URL}/api/entries/${deleteId}`);
       setEntries((prev) => prev.filter((e) => e.id !== deleteId));
       setDeleteId(null);
     } catch (err) {

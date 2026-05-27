@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import Alert from "../../components/Alert";
+import { BASE_URL } from "../../config/api";
 
 function DoctorEdit() {
   const { id } = useParams();
@@ -17,8 +18,8 @@ function DoctorEdit() {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_doctor/${id}`).then((res) => setForm(res.data[0]));
-    axios.get("https://hospital-management-system-backend-zic1.onrender.com/api/departments").then((res) => setDepartments(res.data));
+    axios.get(`${BASE_URL}/api/get_doctor/${id}`).then((res) => setForm(res.data[0]));
+    axios.get(`${BASE_URL}/api/departments`).then((res) => setDepartments(res.data));
   }, [id]);
 
   const handleChange = (e) =>
@@ -27,7 +28,7 @@ function DoctorEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://hospital-management-system-backend-zic1.onrender.com/api/edit_doctor/${id}`, form);
+      await axios.post(`${BASE_URL}/api/edit_doctor/${id}`, form);
       setAlert({ type: "success", message: "✅ Dokter berhasil diperbarui!" });
       setTimeout(() => navigate("/doctors"), 2000);
     } catch (error) {

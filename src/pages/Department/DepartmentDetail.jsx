@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { BASE_URL } from "../../config/api";
 
 function DepartmentDetail() {
   const { id } = useParams();
   const [department, setDepartment] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://hospital-management-system-backend-zic1.onrender.com/api/get_department/${id}`).then((res) => {
+    axios.get(`${BASE_URL}/api/get_department/${id}`).then((res) => {
       setDepartment(res.data[0]);
     });
   }, [id]);
